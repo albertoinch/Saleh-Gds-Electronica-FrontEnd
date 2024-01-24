@@ -1,0 +1,142 @@
+<div class="col-xl-12">
+    <h2 class="page-header primary">
+      {{'codigos-especiales.titulo.crear'|translate}}
+    </h2>
+  </div>
+  <hr>
+  <!-- <div class="alert alert-warning nota col-md-10 justify-content-md-center">
+      {{ 'mensaje.codigos-especiales.notaCrear' | translate }}
+  </div> -->
+  <div class="row justify-content-md-center">
+      <div class="col-md-10">
+        <div class="card-body">
+        <div class="row pull-right">
+          <div class="col-lg-12 pr-0">
+          <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+              <button [routerLink]="['/ventas/items']" type="button" class="btn btn-outline-secondary"
+              title="{{'title.actualizar'|translate}}">
+              <i class="fa fa-arrow-left"></i> {{'boton.volver'|translate}}
+            </button>
+            <button (click)="actualizarPagina()" type="button" class="btn btn-outline-secondary"
+              title="{{'title.actualizar'|translate}}">
+              <i class="fa fa-refresh"></i> {{'boton.actualizar'|translate}}
+            </button>
+          </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  <div class="row justify-content-md-center">
+    <div class="col-md-10">
+        <div>
+            <div class="card card-header bg-adsib text-white text-center">
+                <div class="row offset-5">
+                    <span><i class="fa fa-book"></i></span>&nbsp; &nbsp;
+                      <h4>{{'codigos-especiales.titulo.codigo-especial'|translate}}</h4>
+                </div>
+            </div>
+            <div class="card mb-5">
+                <div class="card-body" >
+                    <div class="row">
+                        <label class="col-md-2">
+                            <small><strong>{{'codigos-especiales.titulo.tipo'|translate}}</strong></small>
+                        </label>
+                        <div class="col-md-3">
+                            <select [(ngModel)]="codigoEspecial.tipo" required id="tipo" name="tipo" [ngClass]="{'is-invalid': validacionTipo, 'custom-select': true, 'is-valid': validacionTipo != null || false}" (change)= "validacionesTipo()">
+                                <option *ngFor="let title of listaTiposCodigos" 
+                                        [value]="title.descripcion" >
+                                  {{title.descripcion}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                              {{'error.ventas.campo'|translate}}
+                            </div>
+                        </div>
+                        <label class="col-md-3">
+                            <small><strong>{{'codigos-especiales.titulo.codigo'|translate}}</strong></small>
+                        </label>
+                        <div class="col-md-4" >
+                            <input type="text"  [ngClass]="{'is-invalid': validacionCodigo, 'form-control': true, 'form-control-sm': true, 'is-valid': validacionCodigo != null || false}" [(ngModel)]="codigoEspecial.codigo" name="fec" [required]="true" (change)="validacionesCodigo()">
+                            <div class="invalid-feedback">
+                                {{'error.ventas.campo'|translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <label class="col-md-2">
+                            <small><strong>{{'codigos-especiales.titulo.fecha-valido'|translate}}</strong></small>
+                        </label>
+                        <div class="col-md-3 fecha">
+                            <div class="input-group datepicker-input" >
+                                <input placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fecha" ngbDatepicker #d="ngbDatepicker" class="form-control"  readonly>
+                                <button class="input-group-addon" (click)="d.toggle(); validacionesFechaF()" type="button" >
+                                  <span class="fa fa-calendar"></span>
+                                </button>
+                              </div>
+                        </div>
+                      <label class="col-md-3">
+                          <small><strong>{{'codigos-especiales.titulo.sucursal'|translate}}</strong></small>
+                      </label>
+                      <div class="col-md-4">
+                          <select [(ngModel)]="codigoEspecial.fidPuntoVenta" required id="tipo" name="tipo" [ngClass]="{'is-invalid': validacionFid, 'custom-select': true, 'is-valid': validacionFid != null || false}" (change)= "validacionesFid()">
+                              <option *ngFor="let title of listaPuntosVenta" 
+                                      [value]="title.id_punto_venta" >
+                                {{title.nombre}}
+                              </option>
+                          </select>
+                          <div class="invalid-feedback">
+                            {{'error.ventas.campo'|translate}}
+                          </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="card-body text-right">
+                  <button (click)="abrirModal(modalSaleh)" type="button" class="btn btn-outline-adsib mr-1"
+                    title="{{'Guardar cambios'|translate}}">
+                    <i class="fa fa-check"></i> {{'boton.crearRegistro'|translate}}
+                  </button>
+                  <button [routerLink]="['/ventas','items']" type="button" class="btn btn-outline-danger"
+                    title="{{'title.cancelar'|translate}}">
+                    <i class="fa fa-times"></i> {{'boton.cancelar'|translate}}
+                  </button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <!--MODAL DE CONFIMACION-->
+  <ng-template class="" #modalSaleh let-modal>
+    <div class="modal-header-saleh">
+      <h5 class="text-theme-bold">
+        {{ modalTitulo }}
+      </h5>
+      <button type="button" class="close text-danger border border-0 active" aria-label="Close" (click)="cerrarModal()">
+        <span>
+          <i class="fa fa-times"></i>
+        </span>
+      </button>
+    </div>
+    <div class="modal-body  text-theme">
+      <p>
+        {{'mensaje.codigos-especiales.registrar'|translate  }} 
+      </p>
+    </div>
+    <div class="modal-body  text-theme">
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-outline-success btn-sm"
+          (click)="crearRegistro();cerrarModal();">
+          <i class="fa fa-check"></i>
+          {{ 'modal.si' | translate }}
+        </button>
+  
+        <button  type="button" class="btn btn-outline-danger btn-sm" (click)="cerrarModal();">
+          <i class="fa fa-times"></i>
+          {{ 'modal.no' | translate }}
+        </button>
+      </div>
+    </div>
+  </ng-template>

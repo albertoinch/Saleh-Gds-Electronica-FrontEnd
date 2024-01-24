@@ -1,0 +1,60 @@
+<div class="col-xl-12">
+    <h2 class="page-header primary">
+      {{ 'menuSuperior.perfil'|translate }}
+    </h2>
+</div>
+<hr>
+<div class="row justify-content-md-center">
+        <div class="col-md-8">
+            <div>
+                <div class="card-header bg-adsib text-white thead">
+                    <div class="row offset-4">
+                        <div col-md-1>
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="col-md-10">
+                            <h4>Perfil de usuario</h4>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div>
+                                <div class="row">
+                                    <label class="col-md-2">
+                                        <strong>Nombre:</strong>
+                                    </label>
+                                    <div class="col-md-4">
+                                        {{usuarios.persona.nombres}}
+                                    </div>
+                                    <label class="col-md-2">
+                                        <strong>Apellidos:</strong>
+                                    </label>
+                                    <div class="col-md-4">
+                                        {{usuarios.persona.primer_apellido }} {{ usuarios.persona.segundo_apellido}}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                  <label class="col-md-2" *ngIf="rol">
+                                      <strong>Rol:</strong>
+                                  </label>
+                                  <div class="col-md-4" *ngIf="rol">
+                                      {{rol.grupo}} 
+                                  </div>
+                                  <label class="col-md-2">
+                                      <strong>Estado:</strong>
+                                  </label>
+                                  <div class="col-md-4">
+                                      {{usuarios.estado}}
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  

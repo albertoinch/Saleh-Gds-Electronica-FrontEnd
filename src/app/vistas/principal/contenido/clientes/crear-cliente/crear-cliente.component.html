@@ -1,0 +1,153 @@
+<div class="col-xl-12">
+  <h2 class="page-header primary">
+    <!-- {{'cliente.titulo.editar-c'|translate}} -->
+    {{'cliente.titulo.crear-cliente'|translate}}
+  </h2>
+</div>
+<hr>
+<div class="row justify-content-md-center">
+    <div class="col-md-8">
+      <div class="card-body">
+      <div class="row pull-right">
+        <div class="col-lg-12 pr-0">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button [routerLink]="['/ventas/clientes']" type="button" class="btn btn-outline-secondary"
+            title="{{'title.actualizar'|translate}}">
+            <i class="fa fa-arrow-left"></i> {{'boton.volver'|translate}}
+          </button>
+          <button (click)="actualizarPagina()" type="button" class="btn btn-outline-secondary"
+                title="{{'title.actualizar'|translate}}">
+                <i class="fa fa-refresh"></i> {{'boton.actualizar'|translate}}
+              </button>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+<div class="row justify-content-md-center">
+  <div class="col-md-8">
+      <div>
+          <div class="card card-header bg-adsib text-white text-center">
+              <div class="row offset-5">
+                  <span><i class="fa fa-user"></i></span>&nbsp; &nbsp;
+                    <h4>{{'cliente.titulo.cliente'|translate}}</h4>
+              </div>
+          </div>
+          <div>
+              <div class="card mb-5">
+                  <div class="card-body">
+                      <div class="row">
+                          <label class="col-md-3">
+                              <small><strong>{{'venta.form.razonSocial-nombre'|translate}}</strong></small>
+                          </label>
+                          <div class="col-md-4">
+                              <input type="text" [(ngModel)]="cliente.nombreRazonSocial" class="form-control form-control-sm" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                          </div>
+                          <label class="col-md-2">
+                              <small><strong>{{'cliente.form.fecha-nacimiento'|translate}}</strong></small>
+                          </label>
+                          <div class="col-md-3" >
+                              <input type="date" class="form-control form-control-sm" [(ngModel)]="cliente.fechaNacimiento" name="fec">
+                          </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                          <label class="col-md-3">
+                             <small> <strong>{{'cliente.form.numero-documento'|translate}}</strong></small>
+                          </label>
+                          <div class="col-md-4">
+                               <input type="text" [(ngModel)]="cliente.numeroDocumento" class="form-control form-control-sm">
+                          </div>
+                          <label class="col-md-2">
+                              <small><strong>{{'cliente.form.complemento'|translate}}</strong></small>
+                          </label>
+                          <div class="col-md-3">
+                               <input type="text" [(ngModel)]="cliente.complemento" class="form-control form-control-sm" maxlength="2">
+                          </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                          <label class="col-md-3">
+                              <small><strong>{{'venta.form.tipoDocI'|translate}}</strong></small>
+                          </label>
+                          <div class="col-md-4">
+                            <select [(ngModel)]="cliente.codigoTipoDocumentoIdentidad" class="custom-select form-control-sm" aria-describedby="TipD">
+                                <option *ngFor="let title of groupTiposDoc" 
+                                    [value]="title.codigo" >
+                                    {{title.descripcion}}
+                                </option>
+                              </select>
+                          </div>
+                          <label class="col-md-2">
+                              <small> <strong>{{'cliente.form.correo'|translate}}</strong></small>
+                            </label>
+                            <div class="col-md-3">
+                              <input type="email" name="email" [(ngModel)]="cliente.correo"  class="form-control form-control-sm" [email]="true" aria-describedby="emailHelp" >
+                              <small class="text-danger" *ngIf="verificarEmail()">{{'error.clientes.correo' | translate}}</small>
+                            </div>
+                          </div>                  
+                      <!-- </div> -->
+                      <br>
+                      <div class="row">
+                          <label class="col-md-3" *ngIf="cliente.codigoTipoDocumentoIdentidad === '2'">
+                              <small><strong>{{'venta.form.pais'|translate}}</strong></small>
+                          </label>
+                          <div class="col-md-4" *ngIf="cliente.codigoTipoDocumentoIdentidad === '2'">
+                            <select [(ngModel)]="cliente.pais"   class="custom-select form-control-sm"  aria-describedby="TipP" required>
+                              <option *ngFor="let title of paises" 
+                                [value]="title.descripcion" >
+                                {{title.descripcion}}
+                              </option>
+                            </select>
+                          </div>	     
+                        
+                      </div>
+                <div class="card-body text-right">
+                  <button (click)="abrirModal(modalSaleh)" type="button" class="btn btn-outline-adsib mr-1"
+                    title="{{'Guardar cambios'|translate}}">
+                    <i class="fa fa-check"></i> {{'boton.guardar'|translate}}
+                  </button>
+                  <button [routerLink]="['/clientes']" type="button" class="btn btn-outline-danger"
+                    title="{{'title.cancelar'|translate}}">
+                    <i class="fa fa-times"></i> {{'boton.cancelar'|translate}}
+                  </button>
+                </div>
+              </div>
+            </div>
+      </div>
+  </div>
+</div>
+
+<!--MODAL DE CONFIMACION-->
+<ng-template class="" #modalSaleh let-modal>
+  <div class="modal-header-saleh">
+    <h5 class="text-theme-bold">
+      {{ modalTitulo }}
+    </h5>
+    <button type="button" class="close text-danger border border-0 active" aria-label="Close" (click)="cerrarModal()">
+      <span>
+        <i class="fa fa-times"></i>
+      </span>
+    </button>
+  </div>
+  <div class="modal-body  text-theme">
+    <p>
+      {{'mensaje.cliente.crearCliente'|translate  }} 
+    </p>
+  </div>
+  <div class="modal-body  text-theme">
+    <div class="modal-footer">
+      <button  type="button" class="btn btn-outline-success btn-sm"
+        (click)="crearRegistro();cerrarModal();">
+        <i class="fa fa-check"></i>
+        {{ 'modal.si' | translate }}
+      </button>
+
+      <button  type="button" class="btn btn-outline-danger btn-sm" (click)="cerrarModal();">
+        <i class="fa fa-times"></i>
+        {{ 'modal.no' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>

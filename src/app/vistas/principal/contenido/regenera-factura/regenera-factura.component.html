@@ -1,0 +1,207 @@
+<div class="col-xl-12">
+  <h2 class="page-header">
+    {{ 'venta.titulo.regeneraFactura' | translate }}
+  </h2>
+</div>
+<div class="row ">
+  <div class="col col-lg-12">
+    <div class="card-body">
+      <div class="row pull-right">
+        <div class="col-lg-12 pr-0">
+          <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button [routerLink]="['/']" type="button" class="btn btn-outline-secondary"
+              title="{{'title.actualizar'|translate}}">
+              <i class="fa fa-arrow-left"></i> {{'boton.volver'|translate}}
+            </button>
+            <button (click)="actualizarPagina()" type="button" class="btn btn-outline-secondary"
+              title="{{'title.actualizar'|translate}}">
+              <i class="fa fa-refresh"></i> {{'boton.actualizar'|translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col col-lg-12">
+    <div class="card">
+      <h5 class="card-header bg-adsib text-white text-center">{{'Factura'}}</h5>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="txtNitCi"><small>{{'venta.form.tipoDocI'|translate}}</small></label>
+              <div class="form-group">
+                
+              <select [(ngModel)]="factura.codigoTipoDocumentoIdentidad" [ngClass]="{'is-invalid': validacionTD, 'custom-select': true}" aria-describedby="TipD" (change)="buscarCliente()" required>
+                  <option *ngFor="let title of groupTiposDoc" 
+                      [value]="title.codigo" >
+                      {{title.descripcion}}
+                  </option>
+              </select>
+              <div class="invalid-feedback">
+                {{'error.ventas.campo'|translate}}
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="txtNitCi"><small>{{'venta.form.nit-ci'|translate}}</small></label>
+              <div *ngIf="factura.codigoTipoDocumentoIdentidad == '2'" class="input-group ">
+                <div class="input-group-prepend input-group-prepend-sm">
+                  <span class="input-group-text" id="inputGroupPrepend">E-</span>
+                </div>
+                <input  (keyup)="buscarCliente()"  [(ngModel)]="factura.numeroDocumento" type="text" class="form-control" id="txtNitCi" aria-describedby="txtNitCi" placeholder="{{'placeholder.ventas.nit-ci'|translate}}" required>
+              </div>
+              <input (keyup)="buscarCliente()" *ngIf="factura.codigoTipoDocumentoIdentidad != '2'" [ngClass]="{'is-invalid': validacionND, 'form-control': true, 'is-valid': validacionND != null}" [(ngModel)]="factura.numeroDocumento" type="text" id="txtNitCi" aria-describedby="txtNitCi" placeholder="{{'placeholder.ventas.nit-ci'|translate}}" (change)="validarNit()">
+              <div class="invalid-feedback">
+                {{'error.ventas.campo'|translate}}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="txtNitCi"><small>{{'venta.form.complemento'|translate}}</small></label>
+              <input (keyup)="buscarCliente()" [(ngModel)]="factura.complemento" type="text" [ngClass]="{'form-control': true}" id="txtNitCi" aria-describedby="txtNitCi" placeholder="{{'placeholder.ventas.complemento'|translate}}">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="txtRazonSocialNombre"><small>{{'venta.form.razonSocial-nombre'|translate}}</small></label>
+              <input [(ngModel)]="factura.nombreRazonSocial" type="text" [ngClass]="{'is-invalid': validacionRS, 'form-control': true , 'is-valid': validacionRS != null}" id="txtRazonSocialNombre"  placeholder="{{'placeholder.ventas.razonSocial-nombre'|translate}}" required (change)="validacionesRS()">
+              <div class="invalid-feedback">
+                {{'error.ventas.campo'|translate}}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+              <label class="container margSD"> 
+                <input type="checkbox" [(ngModel)]="marked"  data-md-icheck (change)="toggleVisibility($event)"/>
+                  <span >Excepción por CI / NIT Invalido</span>
+                <span class="checkmark"></span>
+              </label>  
+          </div>
+          <!--<div class="col-md-6">
+              <div class="form-group">
+                  <label for="txtRazonSocialNombre"><small>{{'Actualizar Fecha?'|translate}}</small></label>
+                  <input type="checkbox" [(ngModel)]="theCheckbox"  data-md-icheck (change)="toggleVisibility($event)"/>
+                    Checkbox is <span *ngIf="marked">checked</span><span *ngIf="!marked">unchecked</span>
+                  <span class="checkmark"></span>
+
+                  <div class="invalid-feedback">
+                    {{'error.ventas.campo'|translate}}
+                  </div>
+                </div>
+          </div>
+           <div class="col-md-6">
+            <div class="form-group">
+              <label for="txtRazonSocialNombre"><small>{{'venta.form.tipoEmision'|translate}}</small></label>
+              <select [(ngModel)]="factura.tipoEmision" [ngClass]="{'is-invalid': validacionTE, 'custom-select': true}" required>
+                  <option *ngFor="let title of groupOptionsSelect" 
+                          [value]="title.value" >
+                    {{title.label}}
+                  </option>
+              </select>
+              <div class="invalid-feedback">
+                {{'error.ventas.campo'|translate}}
+              </div>
+            </div>
+          </div>  -->      
+        </div>
+        <!--<div class="row mb-1">
+          <div class="col-md-12">
+            <fieldset class="border border-secondary">
+              <legend class="h6">{{'venta.form.producto'|translate}}</legend>
+              <div class="row ">
+                <div class="col-md-12">
+                  <button (click)="addItem(detalleI)" type="button"
+                    class="btn btn-outline-dark btn-sm"> <i class="fa fa-plus"></i>
+                    {{'boton.agregarProducto'|translate}}</button>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th class="">{{'venta.form.descripcion'|translate}}</th>
+                      <th class="w20">{{'venta.form.cantidad'|translate}}</th>
+                      <th class="w5">{{'venta.form.accion'|translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let itemProducto of detalleI; first as primero">
+                    <tr *ngFor="let itemProducto of detalles; first as primero">
+                      <td>
+                          <select [(ngModel)]="itemProducto.idItem" [ngClass]="{ 'custom-select': true}" disabled >
+                              <option *ngFor="let title of items" 
+                                      [value]="title.id_item" >
+                                {{title.descripcion}}
+                              </option>
+                          </select>
+                      </td>
+                      <td>
+                        <input [(ngModel)]="itemProducto.cantidad" type="number" min="0" [ngClass]="{ 'form-control': true, 'text-right':true}" (keypress)="validarNumero($event, itemProducto['cantidad'])"  placeholder=" {{'placeholder.ventas.cantidad'|translate}}" disabled>
+                      </td>
+                      <td>
+                        <i (click)="delItem(detalleI)" class=" text-danger fa fa-times fa-2x"
+                          id="btnAccionProducto"></i>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </fieldset>
+          </div>
+        </div>-->
+      </div>
+      <div class="card-body text-right">
+        <button (click)="abrirModal(modalSaleh)" type="button" class="btn btn-outline-adsib mr-1"><i class="fa fa-check"></i>
+          {{'boton.guardar'|translate}}</button>
+        <button [routerLink]="['/']" type="button" class="btn btn-outline-danger"><i class="fa fa-times"></i>
+          {{'boton.cancelar'|translate}}</button>
+      </div>
+      <div class="fix"></div>
+    </div>
+  </div>
+</div>
+
+
+<!--MODAL DE CONFIMACION-->
+<ng-template class="" #modalSaleh let-modal>
+  <div class="modal-header-saleh">
+    <h5 class="text-theme-bold">
+      {{ modalTitulo }}
+    </h5>
+    <button type="button" class="close text-danger border border-0 active" aria-label="Close" (click)="cerrarModal()">
+      <span>
+        <i class="fa fa-times"></i>
+      </span>
+    </button>
+  </div>
+  <div class="modal-body  text-theme">
+    <p *ngIf="factura.codigoTipoDocumentoIdentidad == '5' && factura.codigoExcepcion == '1'" style="color: red;">
+      {{'mensaje.ventas.crearFacturaNitInvalido'|translate}}
+    </p>
+    <p>
+      {{'mensaje.ventas.regeneraF'|translate  }} 
+    </p>
+  </div>
+  <div class="modal-body  text-theme">
+    <div class="modal-footer">
+      <button  type="button" class="btn btn-outline-success btn-sm"
+        (click)="crearRegistro();cerrarModal();">
+        <i class="fa fa-check"></i>
+        {{ 'modal.si' | translate }}
+      </button>
+
+      <button  type="button" class="btn btn-outline-danger btn-sm" (click)="cerrarModal();">
+        <i class="fa fa-times"></i>
+        {{ 'modal.no' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>

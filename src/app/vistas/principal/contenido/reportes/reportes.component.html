@@ -1,0 +1,196 @@
+<div class="row">
+    <div class="col-xl-12">
+      <h2 class="page-header primary">
+        {{ 'menuLateral.reportes' | translate }}
+      </h2>
+    </div>
+  </div>
+  <hr>
+  <div class="row text-center">
+    <small class="col-md-1 form-text ">
+      <strong>{{'reporte.form.tipoR'|translate}}</strong>
+    </small>
+    <div class="col-sm-4" >
+      <select [(ngModel)]="buscarReporteT" class="custom-select form-control form-control" (change)="buscarRepTipo($event.target.value)">
+          <option *ngFor="let title of groupOptionsSelect" 
+                  [value]="title.value" >
+            {{title.label}}
+          </option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-lg-12">
+      <div class="card-body table-responsive">
+          <!-- [ngClass]="{'calendario':(!boolBusqueda || boolBusquedaV || boolBusquedaS)}" -->
+        <div class="row" [ngClass]="{'calendario':verificaClassC()}" *ngIf="boolEventos || boolSalud || boolCertificacion || boolEmitidos || boolAnulados || boolTotal || boolResumenV">
+            <div class="col-md-3 form-group">
+                <label for="txtDesde"><small>{{'reporte.form.fDesde'|translate}}</small></label>
+              <div class="input-group datepicker-input">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="desde" ngbDatepicker #d="ngbDatepicker" readonly>
+                  <button class="input-group-addon" (click)="d.toggle(); limpiar()" type="button" (change)="limpiar()">
+                    <span class="fa fa-calendar"></span>
+                  </button>
+              </div>
+              </div>
+        <div class="col-sm-3">
+                <label for="txtDesde"><small>{{'reporte.form.fHasta'|translate}}</small></label>
+            <div class="input-group datepicker-input">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="dp2" [(ngModel)]="hasta" ngbDatepicker #dp2="ngbDatepicker" readonly >
+                <button class="input-group-addon" (change)="limpiar()" (click)="dp2.toggle(); limpiar()" type="button">
+                  <span class="fa fa-calendar"></span>
+                </button>
+            </div>
+              </div>
+        <!--<div class="col-sm-2" *ngIf="boolEmitidos || boolAnulados">
+                <div class="form-group">
+                  <label for="TipD"><small>{{'reporte.form.tipoD'|translate}}</small></label>
+                  <select [(ngModel)]="buscarTipoDoc" class="custom-select form-control" aria-describedby="TipD" (change)="limpiar()">
+                    <option value="" disabled>Seleccione un tipo de documento</option>
+                <option *ngFor="let title of groupTiposDoc" 
+                        [value]="title.codigo" >
+                  {{title.descripcion}}
+                </option>
+                 </select>
+                </div>
+              </div>
+        <div class="col-sm-2" *ngIf="boolEmitidos">
+                  <label for="CodCli"><small>{{'reporte.form.codigoC'|translate}}</small></label>
+                <div class="form-group">
+                 <input [(ngModel)]="buscarNroCliente" type="number" min="0" class="form-control" id="CodCliente" aria-describedby="CodCli" placeholder="{{'placeholder.reportes.nroCliente'|translate}}">
+                </div>
+              </div>-->
+          <div class="col-sm-2 btw" >
+              <button class="btn btn-outline-secondary btn-sm" (click)="buscarReporte()"><span class="fa fa-search"></span> {{'boton.buscarReporte'|translate}}</button>
+            </div>
+        </div>
+      <div class="row pull-right" *ngIf="(boolBusqueda || boolBusquedaV || boolBusquedaS) && paginacion.total != 0">
+        <div class="col-lg-12">
+          <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-outline-adsib" title="{{'title.generarPDF'|translate}}" (click)="generaPDF()">
+              <i class="fa fa-check"></i> {{'boton.generarPDF'|translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+      <table class="table table-sm table-bordered table-striped text-center" *ngIf="boolBusqueda">
+        <thead *ngIf = "paginacion.total>0">
+          <tr *ngIf="boolEventos">
+            <th>#</th>
+            <th>{{'reporte.titulo.nombreS'|translate}}</th>
+            <th>{{'reporte.titulo.codigoE'|translate}}</th>
+            <th>{{'reporte.titulo.fechaInicio'|translate}}</th>
+            <th>{{'reporte.titulo.fechaFin'|translate}}</th>
+            <th>{{'reporte.titulo.descripcion'|translate}}</th>
+          </tr>
+          <tr *ngIf="boolEmitidos || boolAnulados">
+            <th>#</th>
+            <th>{{'reporte.titulo.fechaEmi'|translate}}</th>
+            <th>{{'reporte.titulo.tipoDoc'|translate}}</th>
+            <th>{{'reporte.titulo.nroDoc'|translate}}</th>
+            <th>{{'reporte.titulo.nroDocC'|translate}}</th>
+            <th>{{'reporte.titulo.razon-social'|translate}}</th>
+            <th>{{'reporte.titulo.monto'|translate}}</th>
+            <th>{{'reporte.titulo.estado'|translate}}</th>
+            <th>{{'reporte.titulo.nic'|translate}}</th>
+            <th>{{'reporte.titulo.certificado'|translate}}</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="boolEventos">
+          <tr *ngFor="let item of lista; let i = index" [attr.data-index]="i">
+            <th scope="row">{{i+1}}</th>
+            <td>{{item.punto_venta.nombre}}</td>
+            <td>{{item.codigo_evento}}</td>
+            <td>{{item.fecha_inicio|date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{item.fecha_fin|date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{item.descripcion}}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="boolEmitidos || boolAnulados">
+          <tr  *ngFor="let ventas of lista; let i = index" [attr.data-index]="i">
+            <th scope="row">{{i+1}}</th>
+            <td>{{ventas.fecha_emision|date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{ventas.tipo_factura}}</td>
+            <td>{{ventas.numero_factura}}</td>
+            <td>{{ventas.numero_documento}}</td>
+            <td>{{ventas.nombre_razon_social}}</td>
+            <td style="text-align: right;">{{ventas.monto}}</td>
+            <td>{{ventas.estado}}</td>
+            <td style="text-align: right;">{{ventas.nic}}</td>
+            <td style="text-align: right;">{{ventas.certificado}}</td>
+          </tr>
+          <tr>
+            <th colspan="6">Total</th>
+            <th style="text-align: right;">{{total}}</th>
+            <td></td>
+            <th style="text-align: right;">{{nic}}</th>
+            <th style="text-align: right;">{{certificado}}</th>
+          </tr>
+        </tbody>
+      </table>
+      <table class="tableW table table-sm table-bordered table-striped text-center" *ngIf="boolBusqueda && boolCantidad">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>{{'reporte.titulo.descripcion'|translate}}</th>
+            <th>{{'reporte.titulo.cantidad'|translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ventas of lista; let i = index" [attr.data-index]="i">
+            <th scope="row" *ngIf="ventas !=null">{{i+1}}</th>
+            <td *ngIf="ventas !=null">{{ventas.estado}}</td>
+            <td *ngIf="ventas !=null">{{ventas.cantidad}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table table-sm table-bordered table-striped text-center" *ngIf="boolBusquedaV">
+          <thead *ngIf = "paginacion.total>0">
+            <tr >
+              <th>#</th>
+              <th>{{'reporte.titulo.mes'|translate}}</th>
+              <th>{{'reporte.titulo.mnic'|translate}}</th>
+              <th>{{'reporte.titulo.mcertificado'|translate}}</th>
+              <th>{{'reporte.titulo.total'|translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of lista; let i = index" [attr.data-index]="i">
+              <th scope="row">{{i+1}}</th>
+              <td>{{item.mes}}</td>
+              <td>{{item.nic}}</td>
+              <td>{{item.certificado}}</td>
+              <td>{{item.total}}</td>
+            </tr>
+          </tbody>
+      </table>
+      <table class="table table-sm table-bordered table-striped text-center" *ngIf="boolBusquedaS">
+          <thead *ngIf = "paginacion.total>0">
+            <tr >
+              <th>#</th>
+              <th>{{'reporte.titulo.id-log'|translate}}</th>
+              <th>{{'reporte.titulo.nivel'|translate}}</th>
+              <th>{{'reporte.titulo.mensaje'|translate}}</th>
+              <th>{{'reporte.titulo.referencia'|translate}}</th>
+              <th>{{'reporte.titulo.fecha'|translate}}</th>
+              <th>{{'reporte.titulo.ip'|translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of lista; let i = index" [attr.data-index]="i">
+              <th scope="row">{{i+1}}</th>
+              <td>{{item.id_log}}</td>
+              <td>{{item.nivel}}</td>
+              <td>{{item.mensaje}}</td>
+              <td>{{item.referencia}}</td>
+              <td>{{item.fecha|date:'dd/MM/yyyy hh:mm:ss'}}</td>
+              <td>{{item.ip}}</td>
+            </tr>
+          </tbody>
+      </table>
+      <div *ngIf="paginacion.total === 0" class="alert alert-danger">
+        No se encontraron resultados...
+      </div>
+      </div>
+    </div>
+  </div>

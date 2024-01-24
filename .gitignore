@@ -1,0 +1,53 @@
+# Este archivo realizado según las buenas practicas de como ignorar archivos.
+# Fuente: https://help.github.com/articles/ignoring-files/
+
+# compiled output
+/tmp
+/out-tsc
+
+# dependencies
+/node_modules
+
+#Builds CA
+*.zip
+/dis
+/dist
+/frontend
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Config
+/src/environments/environment.ts
+/src/environments/environment.prod.ts
+/src/config/config.prod.ts

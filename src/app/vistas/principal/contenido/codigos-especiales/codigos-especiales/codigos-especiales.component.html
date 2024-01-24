@@ -1,0 +1,145 @@
+<div class="col-xl-12">
+  <h2 class="page-header primary">
+    {{ 'menuLateral.codigos-especiales' | translate }}
+  </h2>
+</div>
+<hr>
+<div class="row">
+  <div class="col col-lg-12">
+    <div class="card-body table-responsive">
+      <div class="row pull-right">
+        <div class="col-lg-12">
+          <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button (click)="actualizarDatos()" type="button" class="btn btn-outline-secondary"
+              title="{{'title.actualizar'|translate}}">
+              <i class="fa fa-refresh"></i> {{'boton.actualizar'|translate}}
+            </button>
+             <button type="button" class="btn btn-outline-adsib" title="{{'title.crearNuevoRegistro'|translate}}"
+              [routerLink]="['/ventas','registrar-codigos']" *ngIf="permiteCrear()">
+              <i class="fa fa-check"></i> {{'boton.crearRegistro'|translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+     <table class="table table-saleh">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>
+                <div [hidden]="estado"  placement="top">{{'venta.titulo.estado'|translate}}</div>
+            </th>
+            <th class="text-center w20">
+                <div [hidden]="tipo" (click)="casoBusqueda(1);" placement="top" ngbTooltip="Click para buscar">{{'codigos-especiales.titulo.tipo'|translate}}</div>
+                <div [hidden]="!tipo" class="input-group">
+                  <input type="text" class="form-control form-control-sm" placeholder="Tipo"
+                      (keyup)="buscar()" [(ngModel)]="buscarTipo" >
+                  <span class="input-group-btn">
+                      <button class="btn btn-secondary btn-sm" (click)="close()">
+                          <i class="fa fa-times"></i>
+                      </button>
+                  </span>
+              </div>
+            </th>
+            <th class="text-center w20" >
+                <div placement="top">{{'codigos-especiales.titulo.fecha-inicio'|translate}}</div>
+            </th>
+            <th class="text-center w20">
+                <div [hidden]="fechaFin" (click)="casoBusqueda(3);" placement="top" ngbTooltip="Click para buscar">{{'codigos-especiales.titulo.fecha-fin'|translate}}</div>
+                <div [hidden]="!fechaFin" class="input-group">
+                    <div class="input-group datepicker-input">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker  #d="ngbDatepicker" (keyup.enter)="buscar()" readonly>
+                        <button class="input-group-addon" (click)="d.toggle()" type="button">
+                          <span class="fa fa-calendar"></span>
+                        </button>
+                        <button class="btn btn-secondary btn-sm" (click)="close()">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+              </div>
+            </th>
+            <th class="text-center"> 
+                <div (click)="casoBusqueda(2);" placement="top">{{'codigos-especiales.titulo.codigo'|translate}}</div>
+              </th>
+            <th class="w5">{{'venta.titulo.accion'|translate}}</th>
+          </tr>
+        </thead>
+        <tbody [hidden]="paginacion.total === 0">
+          <tr *ngFor="let item of codigosEspeciales let i = index" [attr.data-index]="i" >
+            <td scope="row">{{i+1}}</td>
+            <td scope="row">
+                <span class="badge badge-success"
+                  [ngClass]="{'badge-success':item.estado==='ACTIVO','badge-danger':item.estado==='CERRADO'}">{{item.estado|translate}}</span>
+              </td>
+            <td>{{item.tipo}}</td>
+            <td class="text-center">{{item.fecha_inicio}}</td>
+            <td class="text-center">{{item.fecha_fin}}</td>
+            <td>{{item.codigo}}</td>
+            <td>
+               <!--  <div class="btn-group btn-group-sm" role="group" aria-label="Botones de acción">
+                    <button *ngIf="item.estado==='PENDIENTE'" (click)="abrirModal(modalSaleh, item, 'solicitud')" type="button" class="btn btn-outline-secondary" title="{{'title.solicitudP'|translate}}"><i class="fa fa-paper-plane"></i></button>
+                <button *ngIf="item.estado === 'ENVIADO'" (click)="abrirModal(modalSaleh, item, 'validacion')" type="button" class="btn btn-outline-info" title="{{'title.solicitudV'|translate}}"><i class="fa fa-paper-plane"></i></button>
+                </div>  -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="paginacion.total === 0">
+        No se encontraron resultados...
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template class="" #modalSaleh let-modal>
+  <div class="modal-header-saleh">
+    <h5 class="text-theme-bold">
+      {{ modalTitulo }}
+    </h5>
+    <button type="button" class="close text-danger border border-0 active" aria-label="Close" (click)="cerrarModal()">
+      <span>
+        <i class="fa fa-times"></i>
+      </span>
+    </button>
+  </div>
+
+  <div *ngIf="modalSeccion === 'solicitud'" class="modal-body  text-theme">
+    <p>
+      {{'mensaje.item.mensajeSolicitud'|translate  }}
+    </p>
+  </div>
+  <div *ngIf="modalSeccion === 'validacion'" class="modal-body  text-theme">
+    <p>
+      {{'mensaje.item.mensajeSolicitud'|translate  }}
+    </p>
+  </div>
+  <div class="modal-body  text-theme">
+    <div class="modal-footer">
+      <button *ngIf="modalSeccion === 'solicitud'" type="button" class="btn btn-outline-success btn-sm"
+        (click)="enviarSolicitud();cerrarModal();">
+        <i class="fa fa-check"></i>
+        {{ 'modal.si' | translate }}
+      </button>
+      <button *ngIf="modalSeccion === 'validacion'" type="button" class="btn btn-outline-success btn-sm"
+        (click)="enviarValidacion();cerrarModal();">
+        <i class="fa fa-check"></i>
+        {{ 'modal.si' | translate }}
+      </button>
+      <button *ngIf="modalSeccion === 'solicitud' || modalSeccion === 'validacion'" type="button" class="btn btn-outline-danger btn-sm" (click)="cerrarModal();">
+        <i class="fa fa-times"></i>
+        {{ 'modal.no' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- Paginación-->
+<div class="d-flex justify-content-end " *ngIf="paginacion.total>0">
+    <small class="col-sd-2 form-text text-muted">
+      <strong>Por página: &nbsp;</strong>
+    </small>
+    <select class="custom-select col-md-1 form-control-sm" style="width: auto" [(ngModel)]="limit" (change)="paginar(1, buscarTipo, buscarEstado, buscarFechaFin, limit)">
+    <option [ngValue]="10">10 </option>
+    <option [ngValue]="25">25 </option>
+    <option [ngValue]="50">50 </option>
+  </select> 
+  <ngb-pagination [collectionSize]="paginacion.total" [(page)]="paginacion.paginaActual" [maxSize]="8" size="sm" size="sm" [rotate]="true" (pageChange)="paginar($event,buscarTipo, buscarEstado, buscarFechaFin, limit)" [pageSize]="limit"  class="">
+  </ngb-pagination>
+</div>

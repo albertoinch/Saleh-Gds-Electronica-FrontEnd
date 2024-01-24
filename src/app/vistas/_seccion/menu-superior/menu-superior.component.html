@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg fixed-top">
+  <a class="navbar-brand" href="#">Facturación</a>
+  <!-- <a href="#"> 
+  <img src="assets/images/logooo.png" width="150px" class="user-avatar" />
+  </a> -->
+  <button class="navbar-toggler" type="button" (click)="mostrarMenu()">
+    <i class="fa fa-bars text-white" aria-hidden="true"></i>
+  </button>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+      <!-- <li class="nav-item dropdown" ngbDropdown>
+        <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
+          <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
+        </a>
+        <div class="dropdown-menu-right" ngbDropdownMenu>
+          <a href="javascript:void(0)" class="dropdown-item small" *ngFor="let notificacion of notificaciones">
+            {{ notificacion.tipo }} <span class="badge badge-secondary">{{ notificacion.cantidad }}</span>
+          </a>
+      <li class="dropdown-divider"></li>
+      <a href="javascript:void(0)" class="dropdown-item small">
+        {{ 'boton.verTodos'|translate }}
+      </a>
+  </div>
+  </li> -->
+  <li class="nav-item dropdown" ngbDropdown>
+    <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
+      <i class="fa fa-user"></i> {{getUsuario()|uppercase}} <b class="caret"></b>
+    </a>
+    <div class="dropdown-menu-right" ngbDropdownMenu>
+      <a class="dropdown-item" [routerLink]="['/ventas/perfil']" href="javascript:void(0)">
+        <i class="fa fa-fw fa-user"></i> {{ 'menuSuperior.perfil'|translate }}
+      </a>
+      <a class="dropdown-item" [routerLink]="['/acceso']" (click)="cerrarSesion()">
+        <i class="fa fa-fw fa-power-off"></i> {{ 'menuSuperior.salir'|translate }}
+      </a>
+    </div>
+  </li>
+  </ul>
+  </div>
+</nav>

@@ -1,0 +1,86 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: swActivo, collapsed: esconder}">
+    <div class="list-group">
+        <a *ngFor="let menuitem of menu; let i = index" [routerLink]="menuitem.ruta" class="list-group-item" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['router-link-active']">
+            <span style="display: flex; flex-direction: row; align-items: center;">
+              <div>
+                <i class={{menuitem.icono}}></i>
+              </div>
+              <div>
+                <p style="white-space: initial;">{{menuitem.label}}</p>
+              </div>
+            </span>
+        </a>
+    </div>
+  <!-- <div class="list-group">
+     <a [routerLink]="['/ventas']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+      [routerLinkActiveOptions]="{exact:true}" >
+      <i class="fa fa-dashboard"></i>&nbsp;
+      <span>{{ 'menuLateral.ventas' | translate }}</span>
+    </a>
+    <a [routerLink]="['/ventas','contingencias']" [routerLinkActive]="['router-link-active']" class="list-group-item"  [routerLinkActiveOptions]="{exact:true}" >
+      <i class="fa fa-sticky-note"></i>&nbsp;
+      <span>{{ 'menuLateral.contingencia' | translate }}</span>
+    </a>
+    <a [routerLink]="['/ventas','eventos']" [routerLinkActive]="['router-link-active']" class="list-group-item" [routerLinkActiveOptions]="{exact:true}" >
+      <i class="fa fa-exclamation"></i>&nbsp;
+      <span>{{ 'menuLateral.eventos' | translate }}</span>
+    </a>
+   
+    <a [routerLink]="['/ventas','clientes']" [routerLinkActive]="['router-link-active']" class="list-group-item" [routerLinkActiveOptions]="{exact:true}" >
+      <i class="fa fa-users"></i>&nbsp;
+      <span>{{ 'menuLateral.clientes' | translate }}</span>
+    </a>
+    <a [routerLink]="['/ventas','items']" [routerLinkActive]="['router-link-active']" class="list-group-item" [routerLinkActiveOptions]="{exact:true}" >
+      <i class="fa fa-shopping-cart"></i>&nbsp;
+      <span>{{ 'menuLateral.items' | translate }}</span>
+    </a>
+    <a [routerLink]="['/sucursales']" [routerLinkActive]="['router-link-active']" class="list-group-item"  [routerLinkActiveOptions]="{exact:true}" >
+      <i class="fa fa-building-o"></i>&nbsp;
+      <span>{{ 'menuLateral.sucursales' | translate }}</span>
+    </a>
+    <a [routerLink]="['/codigos-especiales']" [routerLinkActive]="['router-link-active']" class="list-group-item"  [routerLinkActiveOptions]="{exact:true}" >
+      <i class="fa fa-book"></i>&nbsp;
+      <span>{{ 'menuLateral.codigos-especiales' | translate }}</span>
+    </a>
+    <a [routerLink]="['/usuarios']" [routerLinkActive]="['router-link-active']" class="list-group-item"  [routerLinkActiveOptions]="{exact:true}" >
+      <i class="fa fa-users"></i>&nbsp;
+      <span>{{ 'menuLateral.usuarios' | translate }}</span>
+    </a>
+    
+    <a [routerLink]="['/reportes']" [routerLinkActive]="['router-link-active']" class="list-group-item" [routerLinkActiveOptions]="{exact:true}" >
+      <i class="fa fa-table"></i>&nbsp;
+      <span>{{ 'menuLateral.reportes' | translate }}</span>
+    </a> -->
+    <!-- <a [routerLink]="['/ventas','paquete']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+      [routerLinkActiveOptions]="{exact:true}" >
+      <i class="fa fa-toggle-off"></i>&nbsp;
+      <span>{{ 'menuLateral.offline' | translate }}</span>
+    </a> -->
+    <div class="header-fields">
+      <div class="nested-menu">
+        <a class="list-group-item" (click)="expandirSubMenu('perfil')">
+          <span><i class="fa fa-user"></i>&nbsp; {{ getUsuario() }}</span>
+        </a>
+        <li class="nested" [class.expand]="subMenu === 'perfil'">
+          <ul class="submenu">
+            <li>
+              <a href="javascript:void(0)">
+                <span><i class="fa fa-fw fa-user"></i> {{ 'menuSuperior.perfil'|translate }}</span>
+              </a>
+            </li>
+            <li>
+              <a [routerLink]="['/acceso']" (click)="cerrarSesion()">
+                <span><i class="fa fa-fw fa-power-off"></i> {{ 'menuSuperior.salir'|translate }}</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </div>
+    </div>
+  <!-- </div> -->
+  <div class="toggle-button" [ngClass]="{collapsed: esconder}" (click)="activarSoloIconos()">
+    <i class="fa fa-fw fa-angle-double-left" *ngIf="!esconder"></i>
+    <i class="fa fa-fw fa-angle-double-right" *ngIf="esconder"></i>&nbsp;
+    <span class="small">{{ 'menuLateral.adsib'|translate }} - {{anio()}}</span>
+  </div>
+</nav>

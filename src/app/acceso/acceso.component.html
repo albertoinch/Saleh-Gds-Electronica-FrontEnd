@@ -1,0 +1,25 @@
+<div class="login-page">
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <img src="assets/images/logo.png" width="150px" class="user-avatar" />
+      <h1>{{ 'pagina.titulo.acceso'|translate }}</h1>
+      <form #formLogin="ngForm">
+        <div class="form-content">
+          <div class="form-group text-left">
+            <label for="campoUsuario" class="small text-saleh-09">{{ 'acceso.form.label.usuario'|translate }}</label>
+            <input type="text" class="form-control input-underline input-lg" id="usuario"
+              placeholder="{{ 'acceso.form.placeholder.usuario'|translate }}" aria-describedby="campoUsuario" ngModel
+              name="usuario">
+          </div>
+          <div class="form-group  text-left">
+            <label for="campoClave" class="small text-saleh-09">{{ 'acceso.form.label.contraseña'|translate }}</label>
+            <input type="password" class="form-control input-underline input-lg" id="clave"
+              placeholder="{{ 'acceso.form.placeholder.contraseña'|translate }}" aria-describedby="campoClave" ngModel
+              name="clave" (keyup.enter)="verificandoUsuario()">
+          </div>
+        </div>
+        <a class="btn btn-adsib btn-lg" (click)="verificandoUsuario()">{{ 'boton.acceder'|translate }}</a>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<app-page-header [heading]="'Ventanas'" [icon]="'fa-table'"></app-page-header>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card mb-3">
+      <div class="card-header">Modal</div>
+      <!-- Large modal -->
+      <div class="card-body">
+        <button class="btn btn-adsib" (click)="abrirModal(modalSaleh)">Large modal</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template class="" #modalSaleh let-modal>
+  <div class="modal-header-saleh">
+    <h5 class="text-theme-bold">
+      {{ 'modal.titulo' | translate }}
+    </h5>
+    <button type="button" class="close text-danger border border-0 active" aria-label="Close" (click)="cerrarModal()">
+      <span>
+        <i class="fa fa-times"></i>
+      </span>
+    </button>
+  </div>
+  <div class="modal-body  text-theme">
+    {{'modal.cuerpo'|translate}}
+  </div>
+  <div class="modal-body  text-theme">
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="cerrarModal();">
+        <i class="fa fa-times"></i>
+        {{ 'modal.boton' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>

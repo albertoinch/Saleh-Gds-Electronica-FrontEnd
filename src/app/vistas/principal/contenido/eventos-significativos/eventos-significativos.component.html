@@ -1,0 +1,205 @@
+<div class="col-xl-12">
+  <h2 class="page-header primary">
+    {{ 'menuLateral.eventos' | translate }}
+  </h2>
+</div>
+<hr>
+<div class="row">
+  <div class="col col-lg-12">
+    <div class="card-body table-responsive">
+      <div class="row pull-right">
+        <div class="col-lg-12">
+          <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button (click)="actualizarDatos()" type="button" class="btn btn-outline-secondary"
+              title="{{'title.actualizar'|translate}}">
+              <i class="fa fa-refresh"></i> {{'boton.actualizar'|translate}}
+            </button>
+            <button type="button" class="btn btn-outline-adsib" title="{{'title.crearNuevoRegistro'|translate}}"
+              [routerLink]="['/ventas','registrar-evento']" >
+              <i class="fa fa-check"></i> {{'boton.crearRegistro'|translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+     <table class="table table-saleh" >
+        <thead>
+          <tr>
+            <th class="w20">
+                <div [hidden]="estado" (click)="casoBusqueda(1);" placement="top" ngbTooltip="Click para buscar">{{'venta.titulo.estado'|translate}}</div>
+                <div [hidden]="!estado" class="input-group">
+                    <select [(ngModel)]="buscarEstado" class="custom-select form-control-sm" (change)="paginar(1, limit, $event.target.value, buscarTipo)">
+                        <option disabled check>Escoga un estado</option>
+                        <option *ngFor="let title of groupOptionsEstado" 
+                                [value]="title.value" >
+                          {{title.label}}
+                        </option>
+                    </select>
+                    <span class="input-group-btn" ngbTooltip="Cerrar">
+                        <button class="btn btn-secondary btn-sm" (click)="close()">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </span>
+                </div>
+            </th>
+            <th class="w20" >
+                <div [hidden]="tipo" (click)="casoBusqueda(2);"  placement="top" ngbTooltip="Click para buscar">{{'evento.titulo.tipo'|translate}}</div>
+                <div [hidden]="!tipo" class="input-group">
+                   <select [(ngModel)]="buscarTipo" class="custom-select form-control-sm" (change)="paginar(1, limit, buscarEstado, $event.target.value)">
+                        <option disabled check>Escoga un estado</option>
+                        <option *ngFor="let title of groupOptionsTipo" 
+                                [value]="title.value" >
+                          {{title.label}}
+                        </option>
+                    </select>
+                    <span class="input-group-btn" ngbTooltip="Cerrar">
+                        <button class="btn btn-secondary btn-sm" (click)="close()">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </span>
+                </div>
+            </th>
+            <th class="w20">{{'evento.titulo.sucursal'|translate}}</th>
+            <th sortable="cliente" class="w20">
+                <div placement="top">{{'evento.titulo.fechaInicio'|translate}}</div>
+            </th>
+            <th class="w30" >
+                <div  placement="top">{{'evento.titulo.fechaFin'|translate}}</div>
+            </th>
+            <th class="w20" >{{'evento.titulo.descripcion'|translate}}</th>
+            <th class="w5">{{'evento.titulo.accion'|translate}}</th>
+          </tr>
+        </thead>
+        <tbody [hidden]="paginacion.total === 0">
+          <tr *ngFor="let item of eventos">
+            <th scope="row">
+              <!--
+              <span class="badge badge-success"
+                [ngClass]="{'badge-success':item.estado==='FINALIZADO','badge-info':item.estado==='ENVIADO',  'badge-secondary':item.estado==='PENDIENTE'}">{{item.estado|translate}}</span>
+              -->
+              <span class="badge badge-success"
+                [ngClass]="{'badge-success':item.estado==='CERRADO','badge-info':item.estado==='CERRANDO',  'badge-secondary':item.estado==='ACTIVO'}">{{item.estado|translate}}</span>
+            </th>
+            <!-- <td *ngIf="item.tipo==1">{{'EVENTO POR RANGO'}}</td>
+            <td *ngIf="item.tipo==2">{{'INFORMATIVO'}}</td> -->
+            <td>{{item.codigo}}</td>
+            <td>{{item.punto_venta.sucursal.codigo}}</td>
+            <td>{{item.fecha_inicio|date:'dd/MM/yyyy hh:mm:ss a'}}</td>
+            <td *ngIf="item.tipo ==='INFORMATIVO'">--</td>
+            <!--
+            <td *ngIf="!item.fecha_fin && item.tipo ==='RANGO'">{{'SIN FINALIZAR'|translate}}</td>
+            <td *ngIf="item.fecha_fin && item.tipo ==='RANGO'">{{item.fecha_fin|date:'dd/MM/yyyy hh:mm:ss a'}}</td>
+            -->
+            <td *ngIf="!item.fecha_fin">{{'SIN FINALIZAR'|translate}}</td>
+            <td *ngIf="item.fecha_fin">{{item.fecha_fin|date:'dd/MM/yyyy hh:mm:ss a'}}</td>
+            <td>{{item.descripcion}}</td>
+            <td>
+              <div class="btn-group btn-group-sm" role="group" aria-label="Botones de acción">
+                <!--
+                <button *ngIf="item.estado==='PENDIENTE' " (click)="abrirModal(modalSaleh, item, 'enviarIni')" type="button" class="btn btn-outline-secondary" title="{{'title.enviarEvento'|translate}}">
+                  <i class="fa fa-paper-plane-o"></i></button>
+                <button *ngIf="item.estado==='ENVIADO' " (click)="abrirModal(modalSaleh, item, 'enviarFin')" type="button" class="btn btn-outline-info" title="{{'title.enviarEventoFin'|translate}}">
+                  <i class="fa fa-paper-plane"></i></button>
+                -->
+                <button *ngIf="item.estado==='ACTIVO' " (click)="abrirModal(modalSaleh, item, 'enviarIni')" type="button" class="btn btn-outline-secondary" title="{{'title.cerrarEvento'|translate}}">
+                  <i class="fa fa-paper-plane-o"></i></button>
+                <button *ngIf="item.estado==='ENVIADO' " (click)="abrirModal(modalSaleh, item, 'enviarFin')" type="button" class="btn btn-outline-info" title="{{'title.enviarEventoFin'|translate}}">
+                  <i class="fa fa-paper-plane"></i></button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="paginacion.total === 0">
+          No se encontraron resultados...
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Info -->
+<ng-template class="" #modalSaleh let-modal>
+  <div class="modal-header-saleh">
+    <h5 class="text-theme-bold">
+      {{ modalTitulo }}
+    </h5>
+    <button type="button" class="close text-danger border border-0 active" aria-label="Close" (click)="cerrarModal()">
+      <span>
+        <i class="fa fa-times"></i>
+      </span>
+    </button>
+  </div>
+  <div *ngIf="modalSeccion === 'enviarIni'" class="modal-body  text-theme">
+    <p>
+      {{'¿Esta seguro de cerrar el Evento Significativo?'|translate  }} 
+    </p>
+  </div>
+  <div *ngIf="modalSeccion === 'enviarFin'" class="modal-body  text-theme">
+    <div class="alert alert-info" role="alert">
+      <p>
+        {{'mensaje.evento.enviarFin'|translate  }}
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div>
+          <div class="row">
+            <small class="col-md-4 form-text text-muted">
+              <strong>{{'evento.form.fecha'|translate}}</strong>
+            </small>
+            <div class="col-md-6">
+              <div class="input-group datepicker-input">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
+                  #d="ngbDatepicker" readonly>
+                <button class="input-group-addon" (click)="d.toggle()" type="button">
+                  <span class="fa fa-calendar"></span>
+                </button>
+              </div>
+            </div>     
+          </div>
+          <hr>
+          <div class="row">   
+            <small class="col-md-4 form-text text-muted text" >
+              <strong >{{'evento.form.hora'|translate}}</strong>
+            </small>
+            <div class="col-md-5">
+              <ngb-timepicker [(ngModel)]="defaultTime" size="small" meridian="true"></ngb-timepicker>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-body  text-theme">
+    <div class="modal-footer">
+      <button *ngIf="modalSeccion === 'enviarIni'" type="button" class="btn btn-outline-success"
+        (click)="enviarEventoInicio(modalData);cerrarModal();">
+        <i class="fa fa-check"></i>
+        {{ 'modal.si' | translate }}
+      </button>
+      <button *ngIf="modalSeccion === 'enviarFin'" type="button" class="btn btn-outline-success"
+        (click)="enviarEventoFin(idEvento);cerrarModal();">
+        <i class="fa fa-check"></i>
+        {{ 'modal.si' | translate }}
+      </button>
+      <button *ngIf="modalSeccion === 'enviarIni' || modalSeccion === 'enviarFin'" type="button" class="btn btn-outline-danger" (click)="cerrarModal();">
+        <i class="fa fa-times"></i>
+        {{ 'modal.no' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- Paginación -->
+<div class="d-flex justify-content-end " *ngIf="paginacion.total>0">
+     <small class="col-sd-2 form-text text-muted">
+        <strong>Por página: &nbsp;</strong>
+     </small>
+     <select class="custom-select col-md-1 form-control-sm" style="width: auto" [(ngModel)]="limit" (change)="paginar(1,limit,buscarEstado, buscarTipo)">
+      <option [ngValue]="10">10 </option>
+      <option [ngValue]="25">25 </option>
+      <option [ngValue]="50">50 </option>
+    </select> 
+
+    <ngb-pagination [collectionSize]="paginacion.total" [(page)]="paginacion.paginaActual" [maxSize]="8" size="sm" size="sm" [rotate]="true" (pageChange)="paginar($event,limit,buscarEstado, buscarTipo)" [pageSize]="limit"  class="">
+    </ngb-pagination>
+</div>
+<!-- page: number, limit, buscarE, buscarT -->

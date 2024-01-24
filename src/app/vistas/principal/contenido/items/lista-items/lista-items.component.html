@@ -1,0 +1,179 @@
+<div class="col-xl-12">
+  <h2 class="page-header primary">
+    {{ 'menuLateral.items' | translate }}
+  </h2>
+</div>
+<hr>
+<div class="row">
+  <div class="col col-lg-12">
+    <div class="card-body table-responsive">
+      <div class="row pull-right">
+        <div class="col-lg-12">
+          <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button (click)="actualizarDatos()" type="button" class="btn btn-outline-secondary"
+              title="{{'title.actualizar'|translate}}">
+              <i class="fa fa-refresh"></i> {{'boton.actualizar'|translate}}
+            </button>
+            <button (click)="actualizarCat()" type="button" class="btn btn-outline-secondary"
+              title="{{'title.actualizar'|translate}}">
+              <i class="fa fa-refresh"></i> Catalogos
+            </button>
+             <button type="button" class="btn btn-outline-adsib" title="{{'title.crearNuevoRegistro'|translate}}"
+              [routerLink]="['/ventas','registrar-item']" *ngIf="permiteCrear()">
+              <i class="fa fa-check"></i> {{'boton.crearRegistro'|translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+     <table class="table table-saleh">
+        <thead>
+          <tr>
+            <th>#</th>
+            <!-- <th> (click)="casoBusqueda(1);" -->
+            <!--
+            <th>
+                <div placement="top" >{{'venta.titulo.estado'|translate}}</div>
+            </th>
+            -->
+            <th class="w20">
+                <div [hidden]="actividad" (click)="casoBusqueda(1);" placement="top" ngbTooltip="Click para buscar">{{'item.titulo.actividad-economica'|translate}}</div>
+                <div [hidden]="!actividad" class="input-group">
+                  <input type="text" class="form-control form-control-sm" placeholder="actividad"
+                      (keyup)="buscar()" [(ngModel)]="buscarActividad" >
+                  <span class="input-group-btn">
+                      <button class="btn btn-secondary btn-sm" (click)="close()">
+                          <i class="fa fa-times"></i>
+                      </button>
+                  </span>
+              </div>
+            </th>
+            <th class="w20">
+              <div [hidden]="codigoInt" (click)="casoBusqueda(2);" placement="top" ngbTooltip="Click para buscar">{{'item.titulo.codigo-int'|translate}}</div>
+              <div [hidden]="!codigoInt" class="input-group">
+                <input type="text" class="form-control form-control-sm" placeholder="Código Interno"
+                    (keyup)="buscar()" [(ngModel)]="buscarCodigo" >
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary btn-sm" (click)="close()">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </span>
+            </div>
+          </th>
+            <th class="w20" >
+                <div [hidden]="codigoSin" (click)="casoBusqueda(3);" placement="top" ngbTooltip="Click para buscar">{{'item.titulo.codigo-sin'|translate}}</div>
+                <div [hidden]="!codigoSin" class="input-group">
+                  <input type="text" class="form-control form-control-sm" placeholder="Código Sin"
+                      (keyup)="buscar()" [(ngModel)]="buscarCodigoSin" >
+                  <span class="input-group-btn">
+                      <button class="btn btn-secondary btn-sm" (click)="close()">
+                          <i class="fa fa-times"></i>
+                      </button>
+                  </span>
+              </div>
+            </th>
+            <th class="text-center w20">
+                <div placement="top">{{'item.titulo.descripcion'|translate}}</div>
+            </th>
+            <th class="text-center w20">
+              <div placement="top">{{'item.titulo.codigo-uni'|translate}}</div>
+          </th>
+            <!--
+            <th>{{'item.titulo.precio'|translate}}</th>
+            -->
+            <th class="w5">{{'venta.titulo.accion'|translate}}</th>
+          </tr>
+        </thead>
+        <tbody [hidden]="paginacion.total === 0">
+          <tr *ngFor="let item of items let i = index" [attr.data-index]="i" >
+            <td scope="row">{{i+1}}</td>
+            <!--
+            <td scope="row">
+                <span class="badge badge-success"
+                  [ngClass]="{'badge-success':item.estado==='ACTIVO','badge-secondary':item.estado==='PENDIENTE',  'badge-info':item.estado==='ENVIADO'}">{{item.estado|translate}}</span>
+            </td>
+            -->
+            <!--
+            <td class="text-center" *ngIf="item.estado === 'ACTIVO'">{{item.actividad_economica}}</td>
+            -->
+            <td class="text-center">{{item.actividad_economica}}</td>
+            <td class="text-center" *ngIf="item.estado === 'PENDIENTE' || item.estado === 'ENVIADO'">{{'--'| translate}}</td>
+            <td class="text-center">{{item.codigo}}</td>
+            <!--
+            <td class="text-center" *ngIf="item.estado === 'ACTIVO'">{{item.codigo_sin}}</td>
+            -->
+            <td class="text-center">{{item.codigo_sin}}</td>
+            <td class="text-center" *ngIf="item.estado === 'PENDIENTE' || item.estado === 'ENVIADO'">{{'--'| translate}}</td>
+            
+            <td>{{item.descripcion}}</td>
+            <td class="text-center">{{item.codigo_unidad}}</td>
+            <!--
+            <td class="text-center">{{item.precio_unitario}}</td>
+            -->
+            <td>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Botones de acción">
+                  <button  [routerLink]="['/editar_item', item.codigo]" type="button" class="btn btn-outline-secondary" title="{{'title.editarItem'|translate}}" ><i class="fa fa-pencil"></i></button>
+                </div> 
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="paginacion.total === 0">
+        No se encontraron resultados...
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template class="" #modalSaleh let-modal>
+  <div class="modal-header-saleh">
+    <h5 class="text-theme-bold">
+      {{ modalTitulo }}
+    </h5>
+    <button type="button" class="close text-danger border border-0 active" aria-label="Close" (click)="cerrarModal()">
+      <span>
+        <i class="fa fa-times"></i>
+      </span>
+    </button>
+  </div>
+
+  <div *ngIf="modalSeccion === 'solicitud'" class="modal-body  text-theme">
+    <p>
+      {{'mensaje.item.mensajeSolicitud'|translate  }}
+    </p>
+  </div>
+  <div *ngIf="modalSeccion === 'validacion'" class="modal-body  text-theme">
+    <p>
+      {{'mensaje.item.mensajeSolicitud'|translate  }}
+    </p>
+  </div>
+  <div class="modal-body  text-theme">
+    <div class="modal-footer">
+      <button *ngIf="modalSeccion === 'solicitud'" type="button" class="btn btn-outline-success btn-sm"
+        (click)="enviarSolicitud();cerrarModal();">
+        <i class="fa fa-check"></i>
+        {{ 'modal.si' | translate }}
+      </button>
+      <button *ngIf="modalSeccion === 'validacion'" type="button" class="btn btn-outline-success btn-sm"
+        (click)="enviarValidacion();cerrarModal();">
+        <i class="fa fa-check"></i>
+        {{ 'modal.si' | translate }}
+      </button>
+      <button *ngIf="modalSeccion === 'solicitud' || modalSeccion === 'validacion'" type="button" class="btn btn-outline-danger btn-sm" (click)="cerrarModal();">
+        <i class="fa fa-times"></i>
+        {{ 'modal.no' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- Paginación -->
+<div class="d-flex justify-content-end " *ngIf="paginacion.total>0">
+    <small class="col-sd-2 form-text text-muted">
+      <strong>Por página: &nbsp;</strong>
+    </small>
+    <select class="custom-select col-md-1 form-control-sm" style="width: auto" [(ngModel)]="limit" (change)="paginar(1,buscarActividad,buscarCodigo, buscarCodigoSin, limit)">
+    <option [ngValue]="10">10 </option>
+    <option [ngValue]="25">25 </option>
+    <option [ngValue]="50">50 </option>
+  </select> 
+  <ngb-pagination [collectionSize]="paginacion.total" [(page)]="paginacion.paginaActual" [maxSize]="8" size="sm" size="sm" [rotate]="true" (pageChange)="paginar($event,buscarActividad,buscarCodigo, buscarCodigoSin, limit)" [pageSize]="limit"  class="">
+  </ngb-pagination>
+</div>

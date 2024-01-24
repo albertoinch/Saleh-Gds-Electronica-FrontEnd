@@ -1,0 +1,58 @@
+  <app-page-header [heading]="'Charts'" [icon]="'fa-bar-chart-o'"></app-page-header>
+  <div class="row">
+    <div class="col col-sm-12 col-md-6">
+      <div class="card mb-3">
+        <div class="card-header">
+          Bar Chart
+        </div>
+        <div class="card-body">
+          <canvas baseChart [datasets]="graficosBar" [labels]="graficosBarEtiquetas" [options]="graficosBarOpciones"
+            [legend]="graficosBarLeyenda" [chartType]="graficosBarTipo" (chartHover)="graficoHover($event)"
+            (chartClick)="graficosClick($event)">
+          </canvas>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-info btn-sm" (click)="datosAleatoriosBar()">Actualizar</button>
+        </div>
+      </div>
+    </div>
+    <div class="col col-sm-12 col-md-6">
+      <div class="card mb-3">
+        <div class="card-header">
+          Doughnut Chart
+        </div>
+        <div class="card-body">
+          <canvas baseChart height="180px" [data]="graficosDonas" [labels]="graficosDonasEtiquetas"
+            [chartType]="graficosDonasTipo" (chartHover)="graficoHover($event)" (chartClick)="graficosClick($event)">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-sm-12 col-md-6">
+      <div class="card mb-3">
+        <div class="card-header">
+          Pie Chart
+        </div>
+        <div class="card-body">
+          <canvas baseChart height="150px" [data]="graficosPie" [labels]="graficosPieEtiquetas"
+            [chartType]="graficosPieTipo" (chartHover)="graficoHover($event)" (chartClick)="graficosClick($event)">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col col-sm-12 col-md-6">
+      <div class="card mb-3">
+        <div class="card-header">
+          Line Chart
+        </div>
+        <div class="card-body">
+          <canvas baseChart height="130" [datasets]="graficosLine" [labels]="graficosLineEtiquetas"
+            [options]="graficosLineOpciones" [colors]="graficosLineColores" [legend]="graficosLineLeyenda"
+            [chartType]="graficosLineTipo" (chartHover)="graficoHover($event)" (chartClick)="graficosClick($event)">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>

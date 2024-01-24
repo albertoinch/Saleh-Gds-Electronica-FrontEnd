@@ -1,0 +1,122 @@
+// Definición de colores
+$color-saleh: #361618;
+//$color-saleh: #516c8d;
+$color-blue: #007bff;
+$color-indigo: #6610f2;
+$color-purple: #6f42c1;
+$color-pink: #e83e8c;
+$color-red: #dc3545;
+$color-orange: #fd7e14;
+$color-yellow: #ffc107;
+$color-green: #28a745;
+$color-teal: #20c997;
+$color-cyan: #17a2b8;
+$color-white: #fff;
+$color-gray: #868e96;
+$color-gray-light: #ddd;
+$color-gray-dark: #343A47;
+$color-primary: #007bff;
+$color-secondary: #868e96;
+$color-success: #28a745;
+$color-info: #17a2b8;
+$color-warning: #ffc107;
+$color-danger: #dc3545;
+$color-light: #f8f9fa;
+$color-dark: #343a40;
+$color-silver: #c0c0c0;
+$color-silver-light: #E0E0E0;
+// paleta - ADSIB
+$saleh-01: rgb(54, 22, 24);
+$saleh-02: rgb(77, 23, 27);
+$saleh-03: rgb(97, 35, 43);
+$saleh-04: rgb(110, 46, 58);
+$saleh-05: rgb(115, 50, 62);
+//$saleh-05: rgb(81, 108, 200);
+$saleh-06: rgb(138, 76, 91);
+$saleh-07: rgb(138, 77, 91);
+$saleh-08: rgb(156, 107, 119);
+$saleh-09: rgb(194, 165, 169);
+$saleh-10: rgb(196, 165, 170);
+$saleh-11: rgb(217, 195, 199);
+$saleh-12: rgb(222, 202, 205);
+$saleh-13: rgb(255, 255, 255);
+
+
+// Botones adsib
+
+.btn-adsib {
+  color: #fff;
+  color: rgba(255, 255, 255, 0.8);
+  background: $color-saleh;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-adsib:hover {
+  color: $saleh-09;
+  background-color: $saleh-02;
+  border: 2px solid $saleh-05;
+}
+
+.btn-outline-adsib {
+  color: $color-saleh;
+  background-color: transparent;
+  background-image: none;
+  border-color: $color-saleh;
+}
+
+.btn-outline-adsib:active,
+.btn-outline-adsib:hover {
+  color: $color-white;
+  background-color: $color-saleh;
+}
+
+.btn-outline-warning2 {
+  color: $color-blue;
+  background-color: transparent;
+  background-image: none;
+  border-color: $color-blue;
+}
+
+.btn-outline-warning2:active,
+.btn-outline-warning2:hover {
+  color: $color-white;
+  background-color: $color-blue;
+}
+
+.text-saleh-09 {
+  color: $saleh-09;
+}
+
+.bg-adsib {
+  background-color: $color-saleh !important;
+}
+
+.table-saleh {
+  width: 100%;
+  max-width: 100%;
+
+  thead th {
+    background: $color-saleh !important;
+    color: white;
+  }
+
+  tbody tr:nth-of-type(odd) {
+    background-color: rgba($color-saleh, .055);
+  }
+
+  tbody tr:hover {
+    background-color: rgba($color-saleh, .3);
+  }
+}
+
+.modal-header-saleh {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid $color-gray-dark;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  background-color: rgba($color-saleh, .92);
+  color: white;
+}

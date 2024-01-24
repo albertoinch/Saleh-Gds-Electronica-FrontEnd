@@ -1,0 +1,186 @@
+<div class="col-xl-12">
+  <h2 class="page-header primary">
+    {{'item.titulo.editar-item'|translate}}
+  </h2>
+</div>
+<hr>
+<!--
+<div class="row justify-content-md-center">
+  <div class="col-md-10">
+    <div class="alert alert-warning nota">
+      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+      {{ 'mensaje.item.nota' | translate }}
+    </div>
+  </div>
+</div>
+-->
+<div class="row justify-content-md-center">
+    <div class="col-md-10">
+      <div class="card-body">
+      <div class="row pull-right">
+        <div class="col-lg-12 pr-0">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button [routerLink]="['/ventas/items']" type="button" class="btn btn-outline-secondary"
+            title="{{'title.actualizar'|translate}}">
+            <i class="fa fa-arrow-left"></i> {{'boton.volver'|translate}}
+          </button>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+<div class="row justify-content-md-center">
+	<div class="col-md-10">
+	    <div>
+	        <div class="card card-header bg-adsib text-white text-center">
+	            <div class="row offset-4">
+                	<span><i class="fa fa-shopping-cart"></i></span>&nbsp; &nbsp;
+                    <h4>{{'item.titulo.producto'|translate}}</h4>
+	            </div>
+	        </div>
+          <div class="card mb-5">
+              <div class="card-body">
+                  <div class="row">
+                    <label class="col-md-2">
+                        <small><strong>{{'item.titulo.actividad-economica'|translate}}</strong></small>
+                    </label>
+                    <div class="col-md-4">
+                        <select [(ngModel)]="item.actividad_economica" class="custom-select form-control-sm"  aria-describedby="TipP" required (change)="buscaCodigos()">
+                          <option *ngFor="let title of listaActividades" 
+                            [value]="title.codigo" >
+                            {{title.descripcion}}
+                          </option>
+                        </select>
+                    </div>
+                    <label class="col-md-2">
+                      <small> <strong>{{'item.titulo.codigo-sin'|translate}}</strong></small>
+                    </label>
+                    <div class="col-md-4">
+                      <select [(ngModel)]="item.codigo_sin" class="custom-select form-control-sm" aria-describedby="TipP" required>
+                        <option *ngFor="let title of listaCodigoSin" 
+                          [value]="title.codigo" >
+                          {{title.descripcion}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <label class="col-md-2">
+                        <small><strong>{{'item.titulo.codigo-int'|translate}}</strong></small>
+                    </label>
+                    <div class="col-md-4">
+                      <input type="text" [(ngModel)]="item.codigo" [ngClass]="{'is-invalid': validacionDesc, 'form-control': true, 'form-control-sm': true, 'is-valid': validacionDesc != null || false}" (change)="validacionesDesc()">
+                      <div class="invalid-feedback">
+                        {{'error.ventas.campo'|translate}}
+                      </div>
+                    </div>
+                    <label class="col-md-2">
+                        <small><strong>{{'item.titulo.descripcion'|translate}}</strong></small>
+                    </label>
+                    <div class="col-md-4">
+                      <input type="text" [(ngModel)]="item.descripcion" [ngClass]="{'is-invalid': validacionDesc, 'form-control': true, 'form-control-sm': true, 'is-valid': validacionDesc != null || false}" (change)="validacionesDesc()">
+                      <div class="invalid-feedback">
+                        {{'error.ventas.campo'|translate}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2">&nbsp;</div>
+                    <div class="col-md-4">&nbsp;</div>
+                    <label class="col-md-2">
+                      <small><strong>Contiene</strong></small>
+                    </label>
+                    <div class="col-md-4">
+                      <label class="container margSD"> 
+                        <input type="checkbox" [(ngModel)]="item.imei" data-md-icheck (change)="toggleVisibility($event)"/>
+                          <span >Imei</span>
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="container margSD"> 
+                        <input type="checkbox" [(ngModel)]="item.serie" data-md-icheck (change)="toggleVisibility($event)"/>
+                          <span >Serie</span>
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <label class="col-md-2">
+                      <small> <strong>{{'item.form.tipo-sector'|translate}}</strong></small>
+                    </label>
+                    <div class="col-md-4">
+                      <select [(ngModel)]="item.tipo_documento_sector"  [ngClass]="{'is-invalid': validacionS, 'custom-select ': true, 'form-control-sm': true, 'is-valid': validacionS != null || false}"  aria-describedby="TipP" required (change)="validacionesS()">
+                        <option *ngFor="let title of listaSector" 
+                          [value]="title.codigo" >
+                          {{title.descripcion}}
+                        </option>
+                      </select>
+                      <div class="invalid-feedback">
+                        {{'error.ventas.campo'|translate}}
+                      </div>
+                    </div> 
+                    <label class="col-md-2">
+                        <small><strong>{{'item.form.unidad-medida'|translate}}</strong></small>
+                    </label>
+                    <div class="col-md-4" >
+                      <select [(ngModel)]="item.codigo_unidad"   [ngClass]="{'is-invalid': validacionUM, 'custom-select ': true, 'form-control-sm': true, 'is-valid': validacionUM != null || false}"  aria-describedby="TipP" required>
+                        <option *ngFor="let title of listaUnidades" 
+                          [value]="title.codigo" >
+                          {{title.descripcion}}
+                        </option>
+                      </select>
+                      <div class="invalid-feedback">
+                          {{'error.ventas.campo'|translate}}
+                      </div>
+                    </div>  
+                  </div>
+              </div>
+              <div class="card-body text-right">
+                <button (click)="abrirModal(modalSaleh)" type="button" class="btn btn-outline-adsib mr-1"
+                  title="{{'Guardar cambios'|translate}}">
+                  <i class="fa fa-check"></i> {{'boton.actualizar'|translate}}
+                </button>
+                <button [routerLink]="['/ventas','items']" type="button" class="btn btn-outline-danger"
+                  title="{{'title.cancelar'|translate}}">
+                  <i class="fa fa-times"></i> {{'boton.cancelar'|translate}}
+                </button>
+              </div>
+          </div>
+	    </div>
+	</div>
+</div>
+
+<!--MODAL DE CONFIMACION-->
+<ng-template class="" #modalSaleh let-modal>
+  <div class="modal-header-saleh">
+    <h5 class="text-theme-bold">
+      {{ modalTitulo }}
+    </h5>
+    <button type="button" class="close text-danger border border-0 active" aria-label="Close" (click)="cerrarModal()">
+      <span>
+        <i class="fa fa-times"></i>
+      </span>
+    </button>
+  </div>
+  <div class="modal-body  text-theme">
+    <p>
+      {{'mensaje.item.actualizar'|translate  }} 
+    </p>
+  </div>
+  <div class="modal-body  text-theme">
+    <div class="modal-footer">
+      <button  type="button" class="btn btn-outline-success btn-sm"
+        (click)="actualizaItem();cerrarModal();">
+        <i class="fa fa-check"></i>
+        {{ 'modal.si' | translate }}
+      </button>
+
+      <button  type="button" class="btn btn-outline-danger btn-sm" (click)="cerrarModal();">
+        <i class="fa fa-times"></i>
+        {{ 'modal.no' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>

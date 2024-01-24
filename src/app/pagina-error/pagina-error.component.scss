@@ -1,0 +1,14 @@
+@import '../acceso/acceso.component.scss';
+
+// @import '../app.component.scss';
+.login-page {
+  .error {
+    color: #fff;
+    font-size: 18vw;
+    text-align: center;
+    font-weight: 700;
+    font-family: sans-serif;
+    z-index: 1;
+    position: relative;
+  }
+}

@@ -1,0 +1,171 @@
+<div class="col-xl-12">
+  <h2 class="page-header">
+    {{ 'evento.titulo.crearEvento' | translate }}
+  </h2>
+</div>
+<div class="row">
+  <div class="col col-lg-12">
+    <div class="card-body">
+      <div class="row pull-right">
+        <div class="col-lg-12 pr-0">
+          <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button [routerLink]="['/ventas/eventos']" type="button" class="btn btn-outline-secondary"
+              title="{{'title.actualizar'|translate}}">
+              <i class="fa fa-arrow-left"></i> {{'boton.volver'|translate}}
+            </button>
+            <button (click)="actualizarPagina()" type="button" class="btn btn-outline-secondary"
+              title="{{'title.actualizar'|translate}}">
+              <i class="fa fa-refresh"></i> {{'boton.actualizar'|translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col col-lg-12">
+    <div class="card">
+        <h5 class="card-header bg-adsib text-white text-center">{{'Evento Significativo'}}</h5>
+        <div class="card-body">
+          <div class="row">
+            
+              <!-- <div class="col-md-6">
+                <div class="form-group">
+                  <label for="txttipo"><small>{{'evento.form.tipo'|translate}}</small></label>
+                  <select [(ngModel)]="evento.tipo" required id="tipo" name="tipo" [ngClass]="{'is-invalid': validacionT, 'custom-select': true, 'is-valid': validacionT != null || false}" (change)= "validacionesT()">
+                      <option disabled check>Escoga un estado</option>
+                      <option *ngFor="let title of groupOptionsTipo" 
+                              [value]="title.value" >
+                        {{title.label}}
+                      </option>
+                  </select>
+                  <div class="invalid-feedback">
+                    {{'error.ventas.campo'|translate}}
+                  </div>
+                </div>
+              </div> -->
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="evento"><small>{{'evento.form.evento'|translate}}</small></label>
+                    <select [(ngModel)]="evento.codigoEvento" [ngClass]="{'is-invalid': validacionE, 'custom-select': true, 'is-valid': validacionE != null || false}" (change)= "validacionesE()">
+                      <option *ngFor="let title of listaEventos" 
+                              [value]="title.codigo" >
+                        {{title.descripcion}}
+                      </option>
+                  	</select>
+                  <div class="invalid-feedback">
+                    {{'error.ventas.campo'|translate}}
+                  </div>
+                </div>
+               </div>
+               
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="txttipo"><small>{{'Sucursal - Punto de Venta'|translate}}</small></label>
+                  <select [(ngModel)]="evento.idPuntoVenta" required id="tipo" name="tipo" [ngClass]="{'is-invalid': validacionS, 'custom-select': true, 'is-valid': validacionS != null || false}" (change)= "validacionesS()">
+                      <option *ngFor="let title of listaPuntosVenta" 
+                              [value]="title.id_punto_venta" >
+                        {{title.nombre}}
+                      </option>
+                  </select>
+                  <div class="invalid-feedback">
+                    {{'error.ventas.campo'|translate}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="txtDescripcion"><small>{{'evento.form.descripcion'|translate}}</small></label>
+                  <textarea [(ngModel)]="evento.descripcion" rows="4" [ngClass]="{'is-invalid': validacionDesc, 'form-control': true, 'is-valid': validacionDesc != null || false}" placeholder="{{'placeholder.eventos.descripcion'|translate}}" (change)= "validacionesDesc()"></textarea>
+                  <div class="invalid-feedback">
+                    {{'error.ventas.campo'|translate}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4" style="height: 200px;">
+                <div class="form-group">
+                  <label for="fecha"><small>{{'evento.form.fecha'|translate}}</small></label>
+                  <div class="input-group datepicker-input">
+                    <input placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fecha" ngbDatepicker #d="ngbDatepicker" class="form-control"  readonly><!-- [ngClass]="{'is-invalid': validacionFecha, 'form-control': true, 'is-valid': validacionFecha != null || false}" -->
+                    <button class="input-group-addon" (click)="d.toggle(); validacionesFecha()" type="button" >
+                      <span class="fa fa-calendar"></span>
+                    </button>
+                    <!-- <div class="invalid-feedback">
+                      {{'error.ventas.campo'|translate}}
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                  <div class="form-group">
+                     <label for="txtHora"><small>{{'evento.form.hora'|translate}}</small></label>
+                     <ngb-timepicker [(ngModel)]="hora" size="small" [spinners]="false"></ngb-timepicker>
+                  </div>
+              </div>
+              <div class="col-md-4"  *ngIf="evento.codigoEvento === '5' || evento.codigoEvento === '6' || evento.codigoEvento === '7'">
+                <div class="form-group">
+                  <label for="evento"><small>{{'evento.form.codigoCafc'|translate}}</small></label>
+                  <div class="form-group">
+                    <input type="text" name="cafc" id="cafc" [(ngModel)]="evento.cafc" [required]="true">
+                  </div>
+                </div>
+              </div>
+              
+          </div>
+              <!-- <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                    	 <label for="txtHora"><small>{{'evento.form.hora'|translate}}</small></label>
+                    	 <ngb-timepicker [(ngModel)]="hora" size="small" seconds="true"></ngb-timepicker>
+                    </div>
+                </div>
+          	</div> -->
+              <!-- <div class="row">   
+                <div class="col-md-3">
+                  <ngb-timepicker [(ngModel)]="defaultTime" size="small"></ngb-timepicker>
+                </div>
+              </div> -->
+        </div> 
+        <div class="card-body text-right">
+          <button [attr.disabled]="disabled == false ? true : null" (click)="abrirModal(modalSaleh)" type="button" class="btn btn-outline-adsib mr-1"><i class="fa fa-check"></i>
+            {{'boton.guardar'|translate}}</button>
+          <button [routerLink]="['/ventas/eventos']" type="button" class="btn btn-outline-danger"><i class="fa fa-times"></i>
+            {{'boton.cancelar'|translate}}</button>
+        </div>
+    </div>
+  </div>
+</div>
+<!--MODAL DE CONFIMACION-->
+<ng-template class="" #modalSaleh let-modal>
+    <div class="modal-header-saleh">
+      <h5 class="text-theme-bold">
+        {{ modalTitulo }}
+      </h5>
+      <button type="button" class="close text-danger border border-0 active" aria-label="Close" (click)="cerrarModal()">
+        <span>
+          <i class="fa fa-times"></i>
+        </span>
+      </button>
+    </div>
+    <div class="modal-body  text-theme">
+      <p>
+        {{'mensaje.evento.registrar'|translate  }} 
+      </p>
+    </div>
+    <div class="modal-body  text-theme">
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-outline-success btn-sm"
+          (click)="crearRegistro();cerrarModal();">
+          <i class="fa fa-check"></i>
+          {{ 'modal.si' | translate }}
+        </button>
+  
+        <button  type="button" class="btn btn-outline-danger btn-sm" (click)="cerrarModal();">
+          <i class="fa fa-times"></i>
+          {{ 'modal.no' | translate }}
+        </button>
+      </div>
+    </div>
+  </ng-template>

@@ -1,0 +1,17 @@
+@import '../../../../app.component.scss';
+
+fieldset {
+    border-radius: 0.25rem !important;
+    border: $color-gray;
+    padding: 10px;
+    z-index: -1;
+
+    & legend {
+        width: auto;
+        padding: 10px;
+    }
+}
+input::-webkit-input-placeholder {
+    font-size: 13px;
+    line-height: 3;
+}

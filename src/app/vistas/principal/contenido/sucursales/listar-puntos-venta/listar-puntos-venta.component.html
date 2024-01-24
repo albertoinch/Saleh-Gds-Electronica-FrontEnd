@@ -1,0 +1,176 @@
+<div class="col-xl-12">
+    <h2 class="page-header primary">
+      {{sucursal.nombre | translate }} - {{ 'menuLateral.puntos' | translate }}
+    </h2>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col col-lg-12">
+      <div class="card-body table-responsive">
+        <div class="row pull-right">
+          <div class="col-lg-12">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                <button [routerLink]="['/sucursales']" type="button" class="btn btn-outline-secondary"
+                title="{{'title.volver'|translate}}">
+                <i class="fa fa-arrow-left"></i> {{'boton.volver'|translate}}
+                </button>
+              <button (click)="actualizarDatos()" type="button" class="btn btn-outline-secondary"
+                title="{{'title.actualizar'|translate}}">
+                <i class="fa fa-refresh"></i> {{'boton.actualizar'|translate}}
+              </button>
+              <button type="button" class="btn btn-outline-adsib" title="{{'title.crearNuevoRegistro'|translate}}"
+                [routerLink]="['/crear-punto-venta', idSucursal]" *ngIf="permiteCrear()">
+                <i class="fa fa-check"></i> {{'boton.crearRegistro'|translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+       <table class="table table-saleh" >
+          <thead>
+            <tr>
+              <th>#</th>
+              <th class="w20">
+                  <div [hidden]="estado" (click)="casoBusqueda(1);" placement="top" ngbTooltip="Click para buscar" >{{'sucursal.titulo.estado'|translate}}</div>
+                  <div [hidden]="!estado" class="input-group">
+                      <select [(ngModel)]="buscarEstado" class="custom-select form-control-sm" (change)="paginar(1, limit, $event.target.value, buscarNombre, buscarCodigo)">
+                          <option disabled check>Escoga un estado</option>
+                          <option *ngFor="let title of groupOptionsSelect" 
+                                  [value]="title.value" >
+                            {{title.label}}
+                          </option>
+                      </select>
+                      <span class="input-group-btn" ngbTooltip="Cerrar">
+                          <button class="btn btn-secondary btn-sm" (click)="close()">
+                              <i class="fa fa-times"></i>
+                          </button>
+                      </span>
+                  </div>
+              </th>
+              <th class="w20">
+                  <div [hidden]="nombre" (click)="casoBusqueda(2);" placement="top" ngbTooltip="Click para buscar" class="text-center">{{'sucursal.form.nombre'|translate}}</div>
+                 <div [hidden]="!nombre" class="input-group">
+                      <input type="text" class="form-control form-control-sm" placeholder="Nro. de Documento"
+                          (keyup)="buscar()" [(ngModel)]="buscarNombre">
+                      <span class="input-group-btn">
+                          <button class="btn btn-secondary btn-sm" (click)="close()">
+                              <i class="fa fa-times"></i>
+                          </button>
+                      </span>
+                  </div>
+              </th>
+              <th class="w20 text-center">{{'sucursal.form.descripcion'|translate}}</th>
+              <th sortable="codigo" class="w5 text-center">
+                <div [hidden]="codigo" (click)="casoBusqueda(4);" placement="top" ngbTooltip="Click para buscar">{{'sucursal.form.codigo'|translate}}</div>
+                <div [hidden]="!codigo" class="input-group">
+                    <input type="text" class="form-control form-control-sm" placeholder="Codigo"
+                        (keyup)="buscar()" [(ngModel)]="buscarCodigo">
+                    <span class="input-group-btn">
+                        <button class="btn btn-secondary btn-sm" (click)="close()">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </span>
+                </div>
+              </th>
+              <th class="w20 text-center">{{'sucursal.form.tipo'|translate}}</th>
+              <th class="w20 text-center">{{'sucursal.form.cuis'|translate}}</th>
+              <th class="w5">{{'venta.titulo.accion'|translate}}</th>
+            </tr>
+          </thead>
+          <tbody [hidden]="paginacion.total === 0">
+            <tr *ngFor="let item of puntos let i = index" [attr.data-index]="i" >
+              <td scope="row">{{i+1}}</td>
+              <td scope="row">
+                <span class="badge badge-success"
+                  [ngClass]="{'badge-success':item.estado==='ACTIVO','badge-danger':item.estado==='INACTIVO',  'badge-secondary':item.estado==='PENDIENTE'}">{{item.estado|translate}}</span>
+              </td>
+              <td class="text-center">{{item.nombre|translate|uppercase}}</td>
+              <td class="text-center">{{item.descripcion|translate |uppercase}}</td>
+              <td class="text-center">{{item.codigo}}</td>
+              <td class="text-center" *ngIf="item.tipo == null">{{'NO TIENE UN TIPO REGISTRADO'|translate}}</td>
+              <td class="text-center" *ngIf="item.tipo == 1">{{'PUNTO VENTA MOVIL'|translate}}</td>
+              <td class="text-center" *ngIf="item.tipo == 2">{{'PUNTO VENTA FIJO'|translate}}</td>
+              <td class="text-center" *ngIf="item.tipo == 3">{{'PUNTO VENTA CONSOLIDADO'|translate}}</td>
+              <td class="text-center" *ngIf="item.tipo == 4">{{'PUNTO VENTA PROVEEDOR'|translate}}</td>
+              <td class="text-center" *ngIf="item.tipo == 5">{{'PUNTO VENTA WEBSERVICE'|translate}}</td>
+              <td class="text-center">{{item.cuist ? item.cuist.codigo : ''}}</td>
+              <td>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Botones de acción">
+                  <button *ngIf="item.estado==='PENDIENTE'" (click)="abrirModal(modalSaleh, item, 'registrarPunto')" type="button" class="btn btn-outline-secondary" title="{{'title.registrarPunto'|translate}}" ><i class="fa fa-send"></i></button>
+                  <button *ngIf="item.estado==='ACTIVO' && permiteCrear()" (click)="abrirModal(modalSaleh, item, 'cuis')" type="button" class="btn btn-outline-primary" title="{{'title.cuis'|translate}}"><i class="fa fa-send"></i></button>
+                  <button *ngIf="item.estado==='ACTIVO' && item.codigo != '0' && permiteCrear()" (click)="abrirModal(modalSaleh, item, 'cerrarPunto', item)" type="button" class="btn btn-outline-danger" title="{{'title.cerrarPunto'|translate}}"><i class="fa fa-times"></i></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="paginacion.total === 0">
+            No se encontraron resultados...
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Info -->
+  <ng-template class="" #modalSaleh let-modal>
+    <div class="modal-header-saleh">
+      <h5 class="text-theme-bold">
+        {{ modalTitulo }}
+      </h5>
+      <button type="button" class="close text-danger border border-0 active" aria-label="Close" (click)="cerrarModal()">
+        <span>
+          <i class="fa fa-times"></i>
+        </span>
+      </button>
+    </div>
+    <div *ngIf="modalSeccion === 'registrarPunto'" class="modal-body  text-theme">
+      <p>
+        {{'mensaje.sucursal.registrarPunto'|translate  }} 
+      </p>
+    </div>
+    <div *ngIf="modalSeccion === 'cerrarPunto'" class="modal-body  text-theme">
+      <p>
+        {{'mensaje.sucursal.cerrarPuntoVenta'|translate  }} 
+      </p>
+    </div>
+    <div *ngIf="modalSeccion === 'cuis'" class="modal-body  text-theme">
+      <p>
+        {{'mensaje.sucursal.cuis'|translate }}
+      </p>
+    </div>
+    <div class="modal-body  text-theme">
+      <div class="modal-footer">
+        <button *ngIf="modalSeccion === 'registrarPunto'" type="button" class="btn btn-outline-success btn-sm"
+          (click)="registrarPunto(idPunto);cerrarModal();">
+          <i class="fa fa-check"></i>
+          {{ 'modal.si' | translate }}
+        </button>
+        <button *ngIf="modalSeccion === 'cerrarPunto'" type="button" class="btn btn-outline-success btn-sm"
+          (click)="cerrarPunto(idPunto);cerrarModal();">
+          <i class="fa fa-check"></i>
+          {{ 'modal.si' | translate }}
+        </button>
+        <button *ngIf="modalSeccion === 'cuis'" type="button" class="btn btn-outline-success btn-sm"
+          (click)="solicitarCuis(idPunto);cerrarModal();">
+          <i class="fa fa-check"></i>
+          {{ 'modal.si' | translate }}
+        </button>
+        <button *ngIf="modalSeccion === 'registrarPunto' || modalSeccion === 'cerrarPunto' || modalSeccion === 'cuis'" type="button" class="btn btn-outline-danger btn-sm" (click)="cerrarModal();">
+          <i class="fa fa-times"></i>
+          {{ 'modal.no' | translate }}
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <!-- Paginación -->
+  <div class="d-flex justify-content-end " *ngIf="paginacion.total>0">
+       <small class="col-sd-2 form-text text-muted">
+          <strong>Por página: &nbsp;</strong>
+       </small>
+       <select class="custom-select col-md-1 form-control-sm" style="width: auto" [(ngModel)]="limit" (change)="paginar(1, limit, buscarEstado, buscarNombre, buscarCodigo)">
+        <option [ngValue]="10">10 </option>
+        <option [ngValue]="25">25 </option>
+        <option [ngValue]="50">50 </option>
+      </select> 
+  
+      <ngb-pagination [collectionSize]="paginacion.total" [(page)]="paginacion.paginaActual" [maxSize]="8" size="sm" size="sm" [rotate]="true" (pageChange)="paginar($event, limit, buscarEstado, buscarNombre, buscarCodigo)" [pageSize]="limit"  class="">
+      </ngb-pagination>
+  </div>

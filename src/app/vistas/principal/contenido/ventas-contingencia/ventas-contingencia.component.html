@@ -1,0 +1,279 @@
+<div class="col-xl-12">
+  <h2 class="page-header primary">
+    {{ 'menuLateral.contingencia' | translate }}
+  </h2>
+</div>
+<hr>
+<div class="row">
+  <div class="col col-lg-12">
+    <div class="card-body table-responsive">
+      <div class="row pull-right">
+        <div class="col-lg-12">
+          <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button (click)="actualizarDatos()" type="button" class="btn btn-outline-secondary"
+              title="{{'title.actualizar'|translate}}">
+              <i class="fa fa-refresh"></i> {{'boton.actualizar'|translate}}
+            </button>
+            <button type="button" class="btn btn-outline-adsib" title="{{'title.crearNuevoRegistro'|translate}}"
+              [routerLink]="['/ventas','registrar-factura-contingencia']" *ngIf="permiteCrear()">
+              <i class="fa fa-check"></i> {{'boton.crearRegistro'|translate}}
+            </button>
+            <!--
+            <button type="button" class="btn btn-outline-success" title="{{'title.enviarPaqute'|translate}}"
+              (click)="abrirModal(modalSaleh, item, 'paquete','', '')" *ngIf="permiteCrear()">
+              <i class="fa fa-paper-plane"></i> {{'boton.enviarPaqueteC'|translate}}
+            </button>
+            -->
+          </div>
+        </div>
+      </div>
+      <table class="table table-saleh">
+        <thead class="text-center">
+          <tr>
+            <th>#</th>
+            <th class="w20">
+              <div [hidden]="estado" (click)="casoBusqueda(1);" placement="top" ngbTooltip="Click para buscar">
+                {{'venta.titulo.estado'|translate}}</div>
+              <div [hidden]="!estado" class="input-group">
+                <select [(ngModel)]="buscarEstado" class="custom-select form-control-sm"
+                  (change)="paginar(1,buscarCliente,$event.target.value, buscarNroF, limit, fechaInicio, fechaFin, 2)">
+                  <option disabled check>Escoja un estado</option>
+                  <option *ngFor="let title of groupOptionsSelect" [value]="title.value">
+                    {{title.label}}
+                  </option>
+                </select>
+                <span class="input-group-btn" ngbTooltip="Cerrar">
+                  <button class="btn btn-secondary btn-sm" (click)="close()">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </span>
+              </div>
+            </th>
+            <!-- <th>{{'venta.titulo.tipoEmision'|translate}}</th> -->
+            <th class="w20">
+              <div [hidden]="nro_factura" (click)="casoBusqueda(3);" placement="top" ngbTooltip="Click para buscar">
+                {{'venta.titulo.nroFactura'|translate}}</div>
+              <div [hidden]="!nro_factura" class="input-group">
+                <input type="number" class="form-control form-control-sm" placeholder="Nro. de Factura"
+                  (keyup)="buscar()" [(ngModel)]="buscarNroF" min="0">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary btn-sm" (click)="close()">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </span>
+              </div>
+            </th>
+            <th class="w20">{{'venta.titulo.sucursal'|translate}}</th>
+            <th class="w20">{{'venta.titulo.cafc'|translate}}</th>
+            <!-- <th class="w20" >{{'venta.titulo.cliente'|translate}}</th> -->
+            <th sortable="cliente" class="w20">
+              <div [hidden]="cliente" (click)="casoBusqueda(2);" placement="top" ngbTooltip="Click para buscar">
+                {{'venta.titulo.cliente'|translate}}</div>
+              <div [hidden]="!cliente" class="input-group">
+                <input type="text" class="form-control form-control-sm" placeholder="Cliente" (keyup)="buscar()"
+                  [(ngModel)]="buscarCliente">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary btn-sm" (click)="close()">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </span>
+              </div>
+            </th>
+            <th>{{'venta.titulo.nit'|translate}}</th>
+
+            <!-- <th>{{'venta.titulo.fecha'|translate}}</th> -->
+            <th class="w30">
+              <div [hidden]="fecha" (click)="casoBusqueda(4);" placement="top" ngbTooltip="Click para buscar">
+                {{'venta.titulo.fecha'|translate}}</div>
+              <div [hidden]="!fecha" class="input-group">
+                <div class="input-group">
+                  <input #myRangeInput class="form-control form-control-sm" placeholder="yyyy-mm-dd - yyyy-mm-dd"
+                    name="dp" [(ngModel)]="model" ngbDatepicker [dayTemplate]="t" [autoClose]="false"
+                    [displayMonths]="2" [maxDate]="maxDate" [minDate]="minDate" #d="ngbDatepicker"
+                    (keyup.enter)="buscar()" readonly>
+                  <ng-template #t let-date let-focused="focused">
+                    <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                      [class.faded]="isHovered(date) || isInside(date)" (click)="onDateSelection(date)"
+                      (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+                      {{ date.day }}
+                    </span>
+                  </ng-template>
+                  <div class="input-group-append" ngbTooltip="Buscar fechas">
+                    <span class="input-group-btn">
+                      <button class="btn btn-info btn-sm" (click)="d.toggle()">
+                        <i class="fa fa-calendar"></i>
+                      </button>
+                    </span>
+                  </div>
+                  <span class="input-group-btn" ngbTooltip="Cerrar">
+                    <button class="btn btn-secondary btn-sm" (click)="close()">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </th>
+            <th class="w20">{{'venta.titulo.monto'|translate}}</th>
+            <th class="w5">{{'venta.titulo.accion'|translate}}</th>
+          </tr>
+        </thead>
+        <tbody [hidden]="paginacion.total === 0">
+          <tr *ngFor="let item of aVentas let i = index" [attr.data-index]="i">
+            
+              <td scope="row">{{i+1}}</td>
+            <td scope="row">
+              <span class="badge badge-success"
+                [ngClass]="{'badge-success':item.estado==='VALIDADO','badge-danger':item.estado==='ANULADO',  'badge-secondary':item.estado==='PENDIENTE',  'badge-info':item.estado==='ENVIADO',  'badge-warning':item.estado==='OBSERVADO',  'badge-dark':item.estado==='RECHAZADO'}">{{item.estado|translate}}</span>
+            </td>
+            <!-- <td class="text-center" *ngIf="item.tipo_emision === 1">{{'En Línea'|translate}}</td>
+            <td class="text-center" *ngIf="item.tipo_emision === 2">{{'Fuera de Línea'|translate}}</td> -->
+            <td class="text-center">{{item.numero_factura|translate}}</td>
+            <!--Sucursal-->
+            <td class="text-center">{{item.datos.facturaElectronicaCompraVenta.cabecera.codigoSucursal}}</td>
+            <!--Cafc-->
+            <td class="text-center">{{item.cafc}}</td>
+            <td>{{item.nombre_razon_social|translate}}</td>
+            <td>{{item.numero_documento|translate}}</td>
+            <td>{{item.fecha_emision|date:'dd/MM/yyyy hh:mm:ss a'}}</td>
+            <!-- <td>{{item.monto|currency:'Bs. '}}</td> -->
+            <td class="pull-right">{{item.monto|currency:'Bs. '}}</td>
+            <td>
+              <div class="btn-group btn-group-sm" role="group" aria-label="Botones de acción">
+                <button (click)="getAbrirPdf(item.id_venta)"
+                  type="button" class="btn btn-outline-success" title="{{'title.vistaPreviaFactura'|translate}}"><i
+                    class="fa fa-print"></i></button>
+                <!-- <button *ngIf="item.estado==='VALIDADO' || item.estado==='ANULADO'" (click)="getAbrirPdf2(item.id_venta)" type="button" class="btn btn-outline-success" title="{{'title.vistaPreviaFactura'|translate}}"><i class="fa fa-print"></i></button> -->
+                <button *ngIf="item.estado==='VALIDADO'" (click)="getDescargarPdf(item.id_venta)" type="button"
+                  class="btn btn-outline-adsib" title="{{'title.descargarFactura'|translate}}"><i
+                    class="fa fa-download"></i></button>
+                <button *ngIf="item.estado==='RECHAZADO' || item.estado==='VALIDADO'"
+                  (click)="abrirModal(modalSaleh, item, 'anular',item.nombre_razon_social, item.numero_documento)"
+                  type="button" class="btn btn-outline-danger" title="{{'title.anularFactura'|translate}}">
+                  <i class="fa fa-times"></i></button>
+                <button *ngIf="item.estado==='OBSERVADO' || item.estado==='RECHAZADO'"
+                  (click)="abrirModal(modalSaleh, item.observaciones, 'observados')" type="button"
+                  class="btn btn-outline-secondary" title="{{'title.observados'|translate}}"><i
+                    class="fa fa-exclamation-triangle"></i></button>
+                <button *ngIf="item.estado==='OBSERVADO' || item.estado==='RECHAZADO' && permiteCrear()"
+                  [routerLink]="['/ventas','regenera-factura-contingencia', item.id_venta]" type="button"
+                  class="btn btn-outline-info" title="{{'title.regenerarFactura'|translate}}"><i
+                    class="fa fa-undo"></i></button>
+                <!-- <button *ngIf="item.estado==='VALIDADO'" (click)="getAbrirPdf(item.id_venta)" type="button" class="btn btn-outline-success" title="{{'title.vistaPreviaFactura'|translate}}"><i class="fa fa-print"></i></button> -->
+              </div>
+            </td>
+          
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="paginacion.total === 0">
+        No se encontraron resultados...
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Info -->
+<ng-template class="" #modalSaleh let-modal>
+  <div class="modal-header-saleh">
+    <h5 class="text-theme-bold">
+      {{ modalTitulo }}
+    </h5>
+    <button type="button" class="close text-danger border border-0 active" aria-label="Close" (click)="cerrarModal()">
+      <span>
+        <i class="fa fa-times"></i>
+      </span>
+    </button>
+  </div>
+  <!--  <div *ngIf="modalSeccion === 'regenerar'" class="modal-body  text-theme">
+    <p>
+      {{'¿Esta seguro de regenerar la factura?'|translate  }} 
+    </p>
+     <label for="txtNitCi"><small>{{'venta.form.tipoEmision'|translate}}</small></label>
+      <select [(ngModel)]="tipoE" class="custom-select form-control-sm" >
+          <option *ngFor="let title of groupOptionsRegenera" 
+                  [value]="title.value" >
+            {{title.label}}
+          </option>
+      </select>
+  </div> -->
+
+  <div *ngIf="modalSeccion === 'anular'" class="modal-body  text-theme">
+    <p>
+      {{'mensaje.ventas.anularFactura'|translate }} de <strong>{{razon_social}}</strong> con Número de documento
+      <strong>{{nit}}</strong> ?
+    </p>
+    <label for="txtNitCi"><small>{{'venta.form.motivo'|translate}}</small></label>
+    <select [(ngModel)]="motivo" class="custom-select form-control-sm">
+      <option *ngFor="let title of listaMotivos" [value]="title.codigo">
+        {{title.descripcion}}
+      </option>
+    </select>
+  </div>
+  <div *ngIf="modalSeccion === 'observados'" class="modal-body  text-theme">
+    <table class="table table-saleh">
+      <thead>
+        <tr>
+          <th class="w20">#</th>
+          <th class="w20">{{'placeholder.ventas.obs'|translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let itemModalDeposito of modalData let i = index" [attr.data-index]="i">
+          <td scope="row">{{i+1}}</td>
+          <td>{{itemModalDeposito.observacion}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="modalSeccion === 'paquete'" class="modal-body  text-theme">
+    <p>
+      {{'mensaje.ventas.enviarPaquete'|translate }}
+    </p>
+  </div>
+  <div class="modal-body  text-theme">
+    <div class="modal-footer">
+      <button *ngIf="modalSeccion === 'anular'" type="button" class="btn btn-outline-success btn-sm"
+        (click)="anularVenta(idVenta);cerrarModal();">
+        <i class="fa fa-check"></i>
+        {{ 'modal.si' | translate }}
+      </button>
+      <!-- <button *ngIf="modalSeccion === 'regenerar'" type="button" class="btn btn-outline-success"
+        (click)="regenerarFactura(idVenta);cerrarModal();">
+        <i class="fa fa-check"></i>
+        {{ 'modal.si' | translate }}
+      </button> -->
+      <button *ngIf="modalSeccion === 'paquete'" type="button" class="btn btn-outline-success btn-sm"
+        (click)="enviarPaquete();cerrarModal();">
+        <i class="fa fa-check"></i>
+        {{ 'modal.si' | translate }}
+      </button>
+      <button *ngIf="modalSeccion === 'regenerar' || modalSeccion === 'paquete' || modalSeccion === 'anular'"
+        type="button" class="btn btn-outline-danger btn-sm" (click)="cerrarModal();">
+        <i class="fa fa-times"></i>
+        {{ 'modal.no' | translate }}
+      </button>
+      <button *ngIf="modalSeccion === 'observados' && modalSeccion !== 'regenerar'" type="button"
+        class="btn btn-outline-danger btn-sm" (click)="cerrarModal();">
+        <i class="fa fa-times"></i>
+        {{ 'modal.botonC' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- Paginación -->
+<div class="d-flex justify-content-end " *ngIf="paginacion.total>0">
+  <small class="col-sd-2 form-text text-muted">
+    <strong>Por página: &nbsp;</strong>
+  </small>
+  <select class="custom-select col-md-1 form-control-sm" style="width: auto" [(ngModel)]="limit"
+    (change)="paginar(1,buscarNit,buscarCliente,buscarEstado, buscarNroF, limit, fechaInicio, fechaFin)">
+    <option [ngValue]="10">10 </option>
+    <option [ngValue]="25">25 </option>
+    <option [ngValue]="50">50 </option>
+  </select>
+
+  <ngb-pagination [collectionSize]="paginacion.total" [(page)]="paginacion.paginaActual" [maxSize]="8" size="sm"
+    size="sm" [rotate]="true"
+    (pageChange)="paginar($event,buscarNit,buscarCliente,buscarEstado, buscarNroF, limit, fechaInicio, fechaFin)"
+    [pageSize]="limit" class="">
+  </ngb-pagination>
+</div>

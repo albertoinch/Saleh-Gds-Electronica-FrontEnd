@@ -1,0 +1,82 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build --prod --aot --build-optimizer --vendor-chunk --extract-css",
+    "gitbuild": "ng build --prod --aot=false --build-optimizer=false --base-href /sfe/",
+    "test": "ng test",
+    "auditar": "npm audit",
+    "autocorregir": "npm audit fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.geo.gob.bo/adsib/proyectos_base/frontend"
+  },
+  "bugs": {
+    "url": "https://gitlab.geo.gob.bo/adsib/proyectos_base/frontend/issues"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "8.2.2",
+    "@angular/common": "8.2.2",
+    "@angular/compiler": "8.2.2",
+    "@angular/core": "^8.2.2",
+    "@angular/forms": "8.2.2",
+    "@angular/http": "7.0.2",
+    "@angular/platform-browser": "8.2.2",
+    "@angular/platform-browser-dynamic": "8.2.2",
+    "@angular/router": "8.2.2",
+    "@ng-bootstrap/ng-bootstrap": "4.0.0",
+    "@ngx-loading-bar/core": "^4.0.0",
+    "@ngx-loading-bar/http-client": "^4.0.0",
+    "@ngx-translate/core": "11.0.0",
+    "@ngx-translate/http-loader": "4.0.0",
+    "chart.js": "2.7.3",
+    "core-js": "2.5.7",
+    "file-saver": "^2.0.2",
+    "font-awesome": "4.7.0",
+    "jspdf": "^1.5.3",
+    "jspdf-autotable": "^3.2.4",
+    "ng2-charts": "1.6.0",
+    "ngx-alerts": "^3.4.0",
+    "rxjs": "6.5.2",
+    "tslib": "^1.9.0",
+    "yarn": "1.12.1",
+    "zone.js": "0.9.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.13.0",
+    "@angular/cli": "^7.3.9",
+    "@angular/compiler-cli": "8.2.2",
+    "@angular/language-service": "8.2.2",
+    "@types/jasmine": "2.8.9",
+    "@types/jasminewd2": "2.0.5",
+    "@types/node": "10.12.2",
+    "codelyzer": "4.5.0",
+    "jasmine-core": "3.3.0",
+    "jasmine-spec-reporter": "4.2.1",
+    "karma": "^4.2.0",
+    "karma-chrome-launcher": "2.2.0",
+    "karma-cli": "1.0.1",
+    "karma-coverage-istanbul-reporter": "2.0.4",
+    "karma-jasmine": "1.1.2",
+    "karma-jasmine-html-reporter": "1.4.0",
+    "protractor": "5.4.1",
+    "ts-node": "7.0.1",
+    "tslint": "5.11.0",
+    "typescript": "^3.5.3"
+  },
+  "contributors": [
+    {
+      "name": "Teodoro David Nina Mamani",
+      "email": "tnina@adsib.gob.bo"
+    },
+    {
+      "name": "Wendy Paola Fuertes Bustamante",
+      "email": "wfuertes@adsib.gob.bo"
+    }
+  ]
+}

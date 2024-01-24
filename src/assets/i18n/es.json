@@ -1,0 +1,455 @@
+{
+  "pagina": {
+    "titulo": {
+      "principal": "Principal",
+      "acceso": "Ingreso a Sistema"
+    }
+  },
+  "boton": {
+    "acceder": "Acceder",
+    "verTodos": "Ver todos",
+    "actualizar": "Actualizar",
+    "crearRegistro": "Crear Registro",
+    "finalizarD": "Finalizar dosificación",
+    "guardar": "Guardar",
+    "cancelar": "Cancelar",
+    "agregarProducto": "Agregar Producto",
+    "volver": "Volver",
+    "agregarDeposito": "Agregar Deposito",
+    "crearUsuarioRol": "Asignar rol a usuario",
+    "generarPDF": "Generar PDF",
+    "buscarReporte": "Buscar",
+    "enviarPaquete": "Enviar Paquete",
+    "enviarPaqueteC": "Enviar Contingencia"
+  },
+  "menuLateral": {
+    "principal": "Principal",
+    "tablas": "Tablas",
+    "fechas": "Fechas",
+    "ventanas": "Ventanas",
+    "graficos": "Gráficos",
+    "botones": "Botones",
+    "desplegable": {
+      "titulo": "Desplegable",
+      "opcion1": "Opción 1",
+      "opcion2": "Opción 2"
+    },
+    "ocultar": "Ocultar",
+    "adsib": "SalehGds",
+    "ventas": "Ventas",
+    "eventos": "Eventos Significativos",
+    "reportes": "Reportes",
+    "clientes": "Gestión de Clientes",
+    "offline": "Ventas Fuera de línea",
+    "puntos": "Puntos de Venta",
+    "contingencia": "Ventas de Contingencia",
+    "items": "Productos",
+    "sucursales": "Sucursales",
+    "contribuyentes": "Contribuyentes",
+    "codigos-especiales": "Códigos Especiales",
+    "usuarios": "Usuarios"
+  },
+  "menuSuperior": {
+    "perfil": "Perfil",
+    "salir": "Salir"
+  },
+  "acceso": {
+    "form": {
+      "label": {
+        "usuario": "Usuario",
+        "contraseña": "Contraseña"
+      },
+      "placeholder": {
+        "usuario": "Nombre de usuario",
+        "contraseña": "Contraseña"
+      }
+    }
+  },
+  "modal": {
+    "titulo": "Título modal",
+    "cuerpo": "Cuerpo modal",
+    "boton": "Cerrar modal",
+    "botonG": "Guardar",
+    "botonC": "Cerrar",
+    "anularFactura": "Anulación de factura",
+    "si": "Si",
+    "no": "No",
+    "tituloRegenera": "Regenerar datos de factura",
+    "tituloEnvioEvento": "Registro Inicio de Evento",
+    "tituloEnvioFin": "Registro de finalización de Evento",
+    "enviarPaquete": "Enviar Paquete",
+    "tituloEditarCli":"Editar datos Cliente",
+    "tituloRegenerar": "Regenerar Factura",
+    "tituloRegPunto": "Registrar Punto de Venta",
+    "tituloCrearPunto": "Registrar Nuevo Punto de Venta",
+    "tituloCrearItem": "Registrar Nuevo Producto/Servicio",
+    "tituloEditarItem": "Editar Producto/Servicio",
+    "tituloSolicitud": "Enviar Solicitud de registro nuevo Producto",
+    "tituloValidacion": "Validación de Nuevo Producto",
+    "tituloCrearSucursal": "Registrar nueva Sucursal",
+    "tituloEditarSucursal": "Editar Sucursal",
+    "tituloCrearCodigo": "Registrar nuevo Código Especial",
+    "tituloUsuario": "Editar Datos Usuario",
+    "tituloContribuyente": "Editar Datos Contribuyente",
+    "tituloCrearEvento": "Crear Evento Significativo",
+    "tituloCerrarPunto": "Cerrar Punto de Venta",
+    "tituloCrearCli": "Crear nuevo cliente",
+    "tituloCUIS": "Solicitar CUIS"
+  },
+  "venta": {
+    "titulo": {
+      "estado": "Estado",
+      "sucursal": "Suc.",
+      "cafc": "cafc",
+      "cliente": "Cliente",
+      "nroFactura": "Nro. Factura",
+      "fecha": "Fecha",
+      "monto": "Monto (Bs.)",
+      "accion": "Acción",
+      "crearFactura": "Crear Factura",
+      "nroAutorizacion": "Nro. Autorización",
+      "nit": "Nit",
+      "tipoEmision": "Tipo Emisión",
+      "regeneraFactura": "Regenerar Factura",
+      "deposito": "Registrar Depósito",
+      "crearFacturaC": "Crear Factura de Contingencia",
+      "observacion": "Observación"
+    },
+    "estado": {
+      "finalizado": "Finalizado",
+      "pendiente": "Pendiente",
+      "eliminado": "Eliminado"
+    },
+    "form": {
+      "nit-ci": "NIT / CI",
+      "razonSocial-nombre": "Razón Social / Nombre",
+      "correo": "Correo electrónico",
+      "metodoPago": "Método pago",
+      "tarjeta": "Número de tarjeta",
+      "producto": "Producto",
+      "descripcion": "Detalle producto",
+      "monto": "Monto en Bs",
+      "descuentoAdicional": "Descuento Bs",
+      "giftCard": "Gift Card",
+      "descuento": "Descuento en Bs",
+      "accion": "Acción",
+      "total": "Total",
+      "cuenta": "Cuenta",
+      "deposito": "Depósito",
+      "transaccion": "Transacción",
+      "fecha": "Fecha Emisión",
+      "fechaPago": "Fecha Pago",
+      "complemento": "Complemento",
+      "tipoEmision": "Tipo Emisión de factura",
+      "cantidad": "Cantidad",
+      "precioUnitario": "Precio Unitario",
+      "motivo": "Motivo Anulación",
+      "tipoDocI": "Tipo de documento de Identidad",
+      "pais": "País",
+      "hora": "Hora Emisión",
+      "cafc": "CAFC",
+      "numero-factura": "Número de Factura"
+    }
+  },
+  "title": {
+    "editar": "Editar registro",
+    "descargarPdf": "Descargar PDF",
+    "imprimir": "Imprimir",
+    "actualizar": "Actualizar Página",
+    "crearNuevoRegistro": "Crear Nuevo Registro",
+    "guardar": "Guardar Registro",
+    "cancelar": "Cancelar",
+    "descargarFactura": "Descargar Factura PDF",
+    "vistaPreviaFactura": "Vista Previa Factura PDF",
+    "vistaPreviaFacturaXML": "Vista Previa Factura XML",
+    "anularFactura": "Anular Factura",
+    "editarUsuario": "Editar Rol",
+    "regenerarFactura": "Regenerar Factura",
+    "registrarDeposito": "Registrar Depósito",
+    "enviarEvento": "Enviar evento significativo",
+    "cerrarEvento": "Cerrar evento significativo",
+    "enviarEventoFin": "Enviar finalización de evento",
+    "editarCliente": "Editar Cliente",
+    "editarItem": "Editar Item",
+    "enviarPaqute": "Enviar paquete de facturas",
+    "generarPDF": "Generar PDF",
+    "registrarPunto": "Registrar Punto de Venta",
+    "observados": "Observaciones de la Venta",
+    "solicitudP": "Enviar Solicitud de registro",
+    "solicitudV": "Enviar Validación de registro",
+    "puntos": "Puntos de Venta",
+    "volver": "Volver",
+    "cerrarPunto": "Cerrar Punto de Venta",
+    "cuis": "Solicitar CUIS"
+  },
+  "placeholder": {
+    "ventas": {
+      "nit-ci": "Número de nit o cédula de identidad",
+      "razonSocial-nombre": "Razón Social / Nombre",
+      "correo": "Correo electrónico",
+      "descripcion": "Detalle",
+      "monto": "0",
+      "descuentoAdicional": "Descuento",
+      "descuento": "0",
+      "imei": "Imei",
+      "serie": "Serie",
+      "total": "0",
+      "cuenta": "Número de cuenta",
+      "tarjeta": "0000",
+      "transaccion": "Número de transacción",
+      "fechaDeposito": "YYYY-MM-DD",
+      "complemento": "Complemento",
+      "cantidad": "Cantidad",
+      "precioUnitario": "Precio Unitario",
+      "motivo": "Motivo",
+      "cafc": "CAFC",
+      "numero-factura": "Número de Factura de contingencia",
+      "obs": "Observaciones"
+    },
+    "eventos": {
+      "descripcion": "Descripcion del evento significativo"
+    },
+    "reportes": {
+      "nroCliente": "Código de cliente"
+    },
+    "sucursal":{
+      "nombre": "Nombre de Sucursal",
+      "descripcion": "Descripción de Sucursal",
+      "direccion": "Dirección de Sucursal"
+    }
+  },
+  "error": {
+    "ventas": {
+      "pdfVenta": "No se puede generar el PDF, intente nuevamente",
+      "productos": "Existe error en detalle de productos revise por favor.",
+      "requerido": "Todos los datos son requeridos.",
+      "campo": "Este campo es requerido" 
+    },
+    "eventos": {
+      "requeridoF": "Debe llenar la fecha"
+    },
+    "clientes": {
+      "fecha": "Debe llenar la fecha",
+      "fechaE": "Error al introducir la fecha",
+      "vacio": "No puede dejar datos sin llenar",
+      "correo": "Debe ser un correo válido"
+    }
+  },
+  "mensaje": {
+    "ventas": {
+      "facturaCreada": "Se ha registrado la factura correctamente.",
+      "depositoRegistrado": "Se ha registrado el depósito correctamente.",
+      "anularFactura": "¿Esta seguro de anular la factura de forma definitiva ",
+      "anuladaExitosa": "Se ha anulado de forma exitosa la venta.",
+      "regeneraExito": "Se ha regenerado la factura de forma exitosa.",
+      "enviarPaquete": "¿Esta seguro de enviar el paquete de facturas?",
+      "regeneraFactura": "Se realizo los cambios en la factura correctamente.",
+      "regeneraF": "¿Esta seguro de volver a generar la Factura?",
+      "notaCrearOff": "Nota: Al crear una factura en modo fuera de línea no olvide registrar el evento significativo.",
+      "notaModal": "Recuerde registrar Incio y Fin de la Contingencia antes de enviar el paquete de facturas.",
+      "crearFactura": "¿Esta seguro de crear la Factura con los datos introducidos?",
+      "registrarDeposito": "¿Esta seguro de registrar los depósitos introducidos?",
+      "crearFacturaNitInvalido": "El NIT introducido es inválido",
+      "crearFacturaContin": "¿Esta seguro de crear la Factura de Contingencia con los datos introducidos?"
+    },
+    "evento":{
+      "envioEvento": "Evento enviado satisfactoriamente.",
+      "envioFin": "Se ha finalizado el evento satisfactoriamente",
+      "enviarFin": "Registre la fecha y hora de la finalización del Evento Significativo",
+      "eventoCreado": "Se ha registrado el evento correctamente.",
+      "registrar": "¿Esta seguro de registrar un nuevo Evento Significativo?"
+    },
+    "cliente": {
+      "editarCliente": "¿Esta seguro de reditar los datos del cliente?",
+      "crearCliente": "¿Esta seguro de registrar los datos del cliente?",
+      "clienteEditado": "Se realizo la edición de forma correcta",
+      "clienteCreado": "Se creo el registro correctamente"
+    },
+    "sucursal":{
+      "registrarPunto": "¿Esta seguro de registrar el Punto de Venta en Impuestos Nacionales?",
+      "cerrarPuntoVenta": "¿Esta seguro de cerrar el punto de venta seleccionado?",
+      "cuis": "¿Esta seguro de renovar el CUIS?"
+    },
+    "contingencia": {
+      "notaCrear": "Nota: Debe registrar el evento significativo antes de enviar las facturas de contingencia."
+    },
+    "item":{
+      "registrar": "¿Esta seguro de registrar un nuevo Producto / Servicio?",
+      "actualizar": "¿Esta seguro de modificar el Producto / Servicio?",
+      "itemCreado": "Se ha registrado el producto/servicio correctamente.",
+      "itemEditado": "Item editado correctamente",
+      "mensajeSolicitud": "¿Esta seguro de enviar la solicitud de registro de producto a Impuestos Nacionales",
+      "nota": "Si el producto a registrar no coincide con ninguno del catalogo de Poductos del SIN, no registre ni actividad economica, ni producto SIN para realizar una solicitud nueva a Impuestos Nacionales."
+    },
+    "codigos-especiales": {
+      "registrar": "¿Esta seguro de registrar un nuevo Código Especial?",
+      "notaCrear": "Nota: Registe el Código Especial cuidadosamente "
+    },
+    "usuario": {
+      "editarUsuario": "Edición de datos satisfactoriamente."
+    }
+  },
+  "evento": {
+    "titulo": {
+      "estado": "Estado",
+      "tipo": "Tipo",
+      "sucursal": "Suc.",
+      "fechaInicio": "Fecha Inicio",
+      "fechaFin": "Fecha Finalizado",
+      "descripcion": "Descripción",
+      "accion": "Acción",
+      "crearEvento": "Crear Evento Significativo"
+    },
+    "estado": {
+      "finalizado": "Finalizado",
+      "pendiente": "Pendiente",
+      "eliminado": "Eliminado"
+    },
+    "form": {
+      "hora": "Hora del evento",
+      "fecha": "Fecha del Evento",
+      "tipo": "Tipo",
+      "evento": "Evento Significativo",
+      "descripcion": "Descripción del evento",
+      "sucursal": "Sucursal",
+      "codigoCafc": "Código CAFC"
+
+    }
+  },
+  "reporte": {
+    "titulo": {
+      "nombreS": "Nombre Sucursal",
+      "codigoE": "Código Evento",
+      "fechaInicio": "Fecha Inicio",
+      "fechaFin": "Fecha Finalizado",
+      "descripcion": "Descripción",
+      "fechaEmi": "Fecha Emisión",
+      "tipoDoc": "Tipo",
+      "nroDoc": "Nro. Factura",
+      "razon-social": "Nombre/Razón Social",
+      "nroDocC": "Nro. Documento",
+      "monto": "Monto",
+      "estado": "Estado",
+      "cantidad": "Cantidad",
+      "mes": "Mes",
+      "anio": "Año",
+      "cantidad-ventas": "Cantidad de Ventas",
+      "mnic": "Monto Dominio (Bs)",
+      "mcertificado": "Monto Certificado (Bs)",
+      "total": "Monto total (Bs)",
+      "id-log": "ID Log",
+      "nivel": "Nivel",
+      "mensaje": "Mensaje",
+      "referencia": "Referencia",
+      "fecha": "Fecha",
+      "ip": "IP",
+      "nic": "Dominios",
+      "certificado": "Certificados"
+    },
+    "form": {
+      "tipoR": "Tipo Reporte: ",
+      "fDesde": "Desde:",
+      "fHasta": "Hasta:",
+      "tipoD": "Tipo Documento: ",
+      "codigoC": "Código de cliente:",
+      "descripcion": "Descripción del evento",
+      "sucursal": "Sucursal",
+      "registroF": "Debe registrar la fecha de nacimiento"
+
+    }
+  },
+  "cliente": {
+    "titulo": {
+      "estado": "Estado",
+      "tipoDocumento": "Tipo de Documento",
+      "numero_documento": "Nro. Documento",
+      "editar-cliente": "Editar datos del cliente",
+      "cliente": "Cliente",
+      "crear-cliente": "Crear Cliente"
+    },
+    "estado": {
+      "finalizado": "Finalizado",
+      "pendiente": "Pendiente",
+      "eliminado": "Eliminado"
+    },
+    "form":{
+      "fecha-nacimiento": "Fecha de Nacimiento",
+      "numero-documento": "Número de Documento",
+      "complemento": "Complemento",
+      "estado": "Estado",
+      "correo": "Correo"
+    }
+  },
+  "sucursal":{
+    "form":{
+      "nombre": "Nombre",
+      "municipio": "Municipio",
+      "descripcion": "Descripción",
+      "tipo": "Tipo de Punto de Venta",
+      "codigo": "Código",
+      "sucursal": "Sucursal",
+      "telefono": "Teléfono",
+      "direccion": "Dirección",
+      "nit": "Nit",
+      "codigo_sistema": "Sistema",
+      "codigo_ambiente": "Amb.",
+      "codigo_modalidad": "Mod.",
+      "cuis": "CUIS"
+    },
+    "titulo":{
+      "crearP": "Crear Punto de Venta",
+      "punto": "Punto de Venta",
+      "estado": "Estado",
+      "sucursal": "Sucursal",
+      "crearS": "Crear Sucursal"
+    }
+  },
+  "contribuyente": {
+    "titulo": {
+      "estado": "Estado",
+      "nombre": "Razon Social",
+      "nit": "Nit",
+      "ambiente": "Ambiente",
+      "modalidad": "Modalidad"
+    }
+  },
+  "item":{
+    "titulo":{
+      "actividad-economica": "Actividad Económica",
+      "codigo-int": "Código Interno",
+      "codigo-sin": "Producto / Servicio SIN",
+      "codigo-uni": "Unidad de Medida",
+      "descripcion": "Descripción",
+      "precio": "Precio Unitario",
+      "crear-item": "Registrar nuevo producto",
+      "editar-item": "Editar Producto/Servicio",
+      "producto": "Producto / Servicio"
+    },
+    "form":{
+      "codigo-moneda": "Moneda",
+      "unidad-medida": "Unidad de Medida",
+      "tipo-fiscal": "Tipo Documento Fsical",
+      "tipo-sector": "Tipo Documento Sector"
+    }
+  },
+  "codigos-especiales": {
+    "titulo": {
+      "tipo": "Tipo de código",
+      "codigo": "Código",
+      "fecha-inicio": "Fecha Inicio",
+      "fecha-fin": "Fecha Fin",
+      "fecha-valido": "Valido hasta fecha",
+      "crear": "Crear Código Especial",
+      "codigo-especial": "Código Especial",
+      "sucursal": "Sucursal - Punto de Venta"
+    }
+  },
+  "usuario": {
+    "titulo": {
+      "estado": "Estado",
+      "nombre": "Nombre",
+      "usuario": "Usuario",
+      "apellidos": "Apellidos"
+    }
+  }
+}

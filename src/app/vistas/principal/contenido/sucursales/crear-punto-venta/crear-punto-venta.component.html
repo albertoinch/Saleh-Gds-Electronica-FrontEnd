@@ -1,0 +1,144 @@
+<div class="col-xl-12">
+  <h2 class="page-header primary">
+    {{'sucursal.titulo.crearP'|translate}}
+  </h2>
+</div>
+<hr>
+<div class="row justify-content-md-center">
+  <div class="col col-md-8">
+    <div class="card-body">
+      <div class="row pull-right">
+        <div class="col-lg-12 pr-0">
+          <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button [routerLink]="['/puntos-venta', idSucursal]" type="button" class="btn btn-outline-secondary"
+              title="{{'title.volver'|translate}}">
+              <i class="fa fa-arrow-left"></i> {{'boton.volver'|translate}}
+            </button>
+            <button (click)="actualizarPagina()" type="button" class="btn btn-outline-secondary"
+              title="{{'title.actualizar'|translate}}">
+              <i class="fa fa-refresh"></i> {{'boton.actualizar'|translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-md-center">
+  <div class="col-md-8">
+    <div>
+      <div class="card card-header bg-adsib text-white text-center">
+        <div class="row offset-5">
+          <span><i class="fa fa-bullseye"></i></span>&nbsp; &nbsp;
+          <h4>{{'sucursal.titulo.punto'|translate}}</h4>
+        </div>
+      </div>
+      <div>
+        <div class="card mb-5">
+          <div class="card-body">
+            <div class="row">
+              <label class="col-md-2">
+                <small><strong>{{'sucursal.form.nombre'|translate}}</strong></small>
+              </label>
+              <div class="col-md-4">
+                <input type="text" [(ngModel)]="puntoVenta.nombre"
+                  [ngClass]="{'is-invalid': validacionNombre, 'form-control': true, 'form-control-sm': true, 'is-valid': validacionNombre != null || false}"
+                  (change)="validacionesNombre()" autocomplete="off">
+                <div class="invalid-feedback">
+                  {{'error.ventas.campo'|translate}}
+                </div>
+              </div>
+              <label class="col-md-2">
+                <small> <strong>{{'sucursal.form.descripcion'|translate}}</strong></small>
+              </label>
+              <div class="col-md-4">
+                <textarea name="desc"
+                  [ngClass]="{'is-invalid': validacionDesc, 'form-control': true, 'form-control-sm': true, 'is-valid': validacionDesc != null || false}"
+                  [(ngModel)]="puntoVenta.descripcion" id="" cols="3" rows="2" (change)="validacionesDesc()"
+                  autocomplete="off"></textarea>
+                <div class="invalid-feedback">
+                  {{'error.ventas.campo'|translate}}
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <label class="col-md-2">
+                <small><strong>{{'sucursal.form.tipo'|translate}}</strong></small>
+              </label>
+              <div class="col-md-4">
+                <select [(ngModel)]="puntoVenta.tipo"
+                  [ngClass]="{'is-invalid': validacionTipo, 'custom-select': true, 'form-control-sm': true, 'is-valid': validacionTipo != null || false}"
+                  aria-describedby="TipD" (change)="validacionesTipo()">
+                  <option *ngFor="let title of groupTiposP" [value]="title.codigo">
+                    {{title.descripcion}}
+                  </option>
+                </select>
+                <div class="invalid-feedback">
+                  {{'error.ventas.campo'|translate}}
+                </div>
+              </div>
+              <label class="col-md-2">
+                <small><strong>{{'sucursal.form.sucursal'|translate}}</strong></small>
+              </label>
+              <div class="col-md-4">
+                <select [(ngModel)]="puntoVenta.fidSucursal"
+                  [ngClass]="{'is-invalid': validacionSuc, 'custom-select': true, 'form-control-sm': true, 'is-valid': validacionSuc != null || false}"
+                  aria-describedby="TipD" (change)="validacionesSuc()">
+                  <option *ngFor="let title of listaSucursales" [value]="title.id_sucursal">
+                    {{title.nombre}}
+                  </option>
+                </select>
+                <div class="invalid-feedback">
+                  {{'error.ventas.campo'|translate}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body text-right">
+            <button (click)="abrirModal(modalSaleh)" type="button" class="btn btn-outline-adsib mr-1"
+              title="{{'Guardar cambios'|translate}}">
+              <i class="fa fa-check"></i> {{'boton.crearRegistro'|translate}}
+            </button>
+            <button [routerLink]="['/ventas']" type="button" class="btn btn-outline-danger"
+              title="{{'title.cancelar'|translate}}">
+              <i class="fa fa-times"></i> {{'boton.cancelar'|translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MODAL DE CONFIMACION-->
+<ng-template class="" #modalSaleh let-modal>
+  <div class="modal-header-saleh">
+    <h5 class="text-theme-bold">
+      {{ modalTitulo }}
+    </h5>
+    <button type="button" class="close text-danger border border-0 active" aria-label="Close" (click)="cerrarModal()">
+      <span>
+        <i class="fa fa-times"></i>
+      </span>
+    </button>
+  </div>
+  <div class="modal-body  text-theme">
+    <p>
+      {{'¿Esta seguro de registrar los datos introducidos?'|translate }}
+    </p>
+  </div>
+  <div class="modal-body  text-theme">
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-success btn-sm" (click)="crearRegistro();cerrarModal();">
+        <i class="fa fa-check"></i>
+        {{ 'modal.si' | translate }}
+      </button>
+
+      <button type="button" class="btn btn-outline-danger btn-sm" (click)="cerrarModal();">
+        <i class="fa fa-times"></i>
+        {{ 'modal.no' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
